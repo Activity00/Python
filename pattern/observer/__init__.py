@@ -23,6 +23,7 @@ class Observerable(object):
         self._list_observer.remove(o)
         
     def noifyObservers(self):
+        print __class__,'start'
         self.__notifyObservers(None);
     
     def __notifyObservers(self,args):

@@ -11,9 +11,13 @@ from pattern.observer import Observer, Observerable
 class Thief(Observer):
     def __init__(self):
         super(Thief,self).__init__()
+    def update(self):
+        print 'Thief update'
 class Police(Observer):
     def __init__(self):
-        Observer.__init__(self) 
+        Observer.__init__(self)
+    def update(self):
+        print 'Police update' 
 class Car(Observerable):
     def __init__(self):
         Observerable.__init__(self)
