@@ -3,6 +3,8 @@ import random
 from threading import Thread, Lock
 import time
 
+__all__=['Produces','Consume']
+
 queue=[]
 lock=Lock()
 
