@@ -52,7 +52,7 @@ def quick_sort(lists,left,right):
     
 
 lists=[5,4,3,2,1]  
-print '插入排序:',insert_sort(lists)
-print '冒泡排序:',bubble_sort(lists)
-print '快速排序:',quick_sort(lists, 0, 4)
+print('插入排序:',insert_sort(lists))
+print('冒泡排序:',bubble_sort(lists))
+print('快速排序:',quick_sort(lists, 0, 4))
 

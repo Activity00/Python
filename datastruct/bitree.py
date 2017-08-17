@@ -36,7 +36,7 @@ class BiTree(object):
         self.root=root
         
     def createTree(self,root):
-        data=raw_input('请输入：')
+        data=input('请输入：')
         if len(data)==0:
             root=None
         else:
@@ -50,7 +50,7 @@ class BiTree(object):
     def preTraverse(self,root):
         if root:
             if root.data:
-                print root.data
+                print(root.data)
                 self.preTraverse(root.left)
                 self.preTraverse(root.right)
             
