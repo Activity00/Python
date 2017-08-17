@@ -1,5 +1,12 @@
+# coding:utf-8
+# !usr/bin/env python
+"""
+Created on 2017年3月6日
+
+@author: 武明辉
+"""
 from twisted.internet import reactor
-from twisted.internet.protocol import git, Factory
+from twisted.internet.protocol import Protocol, Factory
 from twisted.internet.endpoints import TCP4ServerEndpoint
 
 

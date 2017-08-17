@@ -14,7 +14,7 @@ class Getter(object):
         reactor.callLater(2,d.callback,x*3)
         return d
 def printd(d):
-    print d
+    print(d)
 
 g=Getter()
 d=g.getData(3)

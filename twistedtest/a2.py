@@ -1,10 +1,10 @@
-#-*-coding:utf-8-*-
-#！usr/bin/env python
-'''
+# coding:utf-8
+# !usr/bin/env python
+"""
 Created on 2017年3月6日
 
 @author: 武明辉
-'''
+"""
 from twisted.internet import reactor
 from twisted.internet.protocol import Factory
 from twisted.protocols.basic import LineReceiver
@@ -15,11 +15,14 @@ class Chat(LineReceiver):
         self.users = users
         self.name = None
         self.state = "GETNAME"
+
     def connectionMade(self):
         self.sendLine("What's your name?")
+
     def connectionLost(self, reason):
         if self.name in self.users:
             del self.users[self.name]
+
     def lineReceived(self, line):
         if self.state == "GETNAME":
             self.handle_GETNAME(line)
@@ -41,12 +44,15 @@ class Chat(LineReceiver):
             if protocol != self:
                 protocol.sendLine(message)
 
+
 class ChatFactory(Factory):
     def __init__(self):
         self.users = {}
         # maps user names to Chat instances
+
     def buildProtocol(self, addr):
         return Chat(self.users)
+
 
 reactor.listenTCP(8123, ChatFactory())
 reactor.run()
