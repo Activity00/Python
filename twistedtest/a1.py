@@ -1,5 +1,5 @@
 from twisted.internet import reactor
-from twisted.internet.protocol import Protocol, Factory
+from twisted.internet.protocol import git, Factory
 from twisted.internet.endpoints import TCP4ServerEndpoint
 
 
