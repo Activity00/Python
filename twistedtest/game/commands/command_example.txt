@@ -1,0 +1,40 @@
+EnterRoom:
+{ "command": "EnterRoom", "seq": "seq", "player_id": 1, "room_id": 1 }
+{ "command": "EnterRoom", "seq": "seq", "player_id": 2, "room_id": 1 }
+{ "command": "SitDown", "seq": "seq", "name": "name2", "chips": 400, "position": 2 }
+{ "command": "EnterRoom", "seq": "seq", "player_id": 3, "room_id": 1 }
+{ "command": "EnterRoom", "seq": "seq", "player_id": 4, "room_id": 1 }
+{ "command": "SitDown", "seq": "seq", "name": "name2", "chips": 800, "position": 4 }
+
+GetRoomState:
+{"command":"GetRoomState", "seq":"seq"}
+
+SitDown:
+{ "command": "SitDown", "seq": "seq", "name": "name1", "chips": 1000, "position": 1 }
+{ "command": "SitDown", "seq": "seq", "name": "name2", "chips": 400, "position": 2 }
+{ "command": "SitDown", "seq": "seq", "name": "name3", "chips": 1000, "position": 3 }
+{ "command": "SitDown", "seq": "seq", "name": "name2", "chips": 800, "position": 4 }
+
+Start:
+{ "command": "Start", "seq": "seq" }
+
+Check:
+{"command":"Check","seq": "seq"}
+
+Bet:
+{"command":"Bet","chips":20,"seq":"seq"}
+
+Call:
+{"command":"Call","seq":"seq"}
+
+AllIn:
+{"command":"AllIn","seq":"seq"}
+
+Raise:
+{"command":"Raise","chips":40, "seq":"seq"}
+
+Fold:
+{"command":"Fold","seq":"seq"}
+
+Debug:
+{"command":"Debug","seq":"seq"}
