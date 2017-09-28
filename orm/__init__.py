@@ -6,48 +6,79 @@
 """
 
 
+class Field(object):
+    def __init__(self, name, column_type):
+        self.name = name
+        self.column = column_type
+
+    def __str__(self):
+        return '<%s:%s>'%(self.__class__,self.name)
+
+
+class StringField(Field):
+    def __init__(self, name):
+        super(StringField, self).__init__(name, 'varchar(100)')
+
+
+class IntegerField(Field):
+
+    def __init__(self, name):
+        super(IntegerField, self).__init__(name, 'bigint')
+
+
+class ModelMetaclass(type):
+
+    def __new__(cls, name, bases, attrs):
+        if name == 'Model':
+            return type.__new__(cls, name, bases, attrs)
+
+        mappings = dict()
+        for k, v in attrs.iteritems():
+            if isinstance(v, Field):
+                mappings[k] = v
+
+        for k in mappings.iterkeys():
+            attrs.pop(k)
+
+        attrs['__table__'] = name
+        attrs['__mappings__'] = mappings
+
+        return type.__new__(cls, name, bases, attrs)
+
+
 class Model(dict):
-    """
-    Model从dict继承，所以具备所有dict的功能，同时又实现了特殊方法__getattr__()和__setattr__()，所以又可以像引用普通字段那样写：
-    >>> user['id']
-    123
-    >>> user.id
-    123
-    """
     __metaclass__ = ModelMetaclass
 
-    def insert(self):
-        params = {}
-        for k, v in self.__mappings__.iteritems():
-            params[v.name] = getattr(self, k)
-        db.insert(self.__table__, **params)
-        return self
+    def __init__(self, **kwargs):
+        super(Model, self).__init__(**kwargs)
 
-    @classmethod
-    def get(cls, pk):
-        d = db.select_one('select * from %s where %s=?' % (cls.__table__, cls.__primary_key__.name), pk)
-        return cls(**d) if d else None
-
-    def __init__(self, **kw):
-        super(Model, self).__init__(**kw)
-
-    def __getattr__(self, key):
+    def __getattr__(self, item):
         try:
-            return self[key]
+            return self[item]
         except KeyError:
-            raise AttributeError(r"'Dict' object has no attribute '%s'" % key)
+            raise AttributeError('Model object has no attribute %s'%item)
 
     def __setattr__(self, key, value):
         self[key] = value
 
+    def save(self):
+        fields = []
+        params = []
+        arags = []
+        for k, v in self.__mappings__.iteritems():
+            fields.append(v.name)
+            params.append('?')
+            arags.append(getattr(self,k,None))
+        sql = 'insert into %s (%s) values (%s)'%(self.__table__,','.join(fields),','.join(params))
+        print(sql)
 
-class ModelMetaclass(type):
-    def __new__(cls, name, bases, attrs):
-        mapping = ... # 读取cls的Field字段
-        primary_key = ... # 查找primary_key字段
-        __table__ = cls.__talbe__ # 读取cls的__table__字段
-        # 给cls增加一些字段：
-        attrs['__mapping__'] = mapping
-        attrs['__primary_key__'] = __primary_key__
-        attrs['__table__'] = __table__
-        return type.__new__(cls, name, bases, attrs)
+
+class User(Model):
+    id = IntegerField('id')
+    name = StringField('username')
+    email = StringField('email')
+    password = StringField('password')
+
+
+u = User(id=12345, name='wmh', email='xxx.xx',password='****')
+u.save()
