@@ -43,16 +43,18 @@ def dp_money(ii):
 
 def dp_jump(nums):
     """
-    # >>> dp_jump([2, 3, 1, 1, 4])
+    >>> dp_jump([2, 3, 1, 1, 4])
     2
+    >>> dp_jump([1, 1, 7, 5, 8, 4])
+    3
     """
     ret = [0] * len(nums)
-    for i in range(len(nums)):
-        ret[i] = min([ret[i-j] + 1 for j in range(1, i+1) if 0 <= i-j <= nums[i-j]], default=0)
+    for i in range(1, len(nums)):
+        ret[i] = min([ret[j] + 1 for j in range(i) if 0 <= i-j <= nums[j]], default=0)
+    return ret[len(nums)-1]
 
-    return ret[len(nums)-1], ret
 
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
-    print(dp_jump([1, 1, 7, 5, 8, 4]))
+
