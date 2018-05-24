@@ -54,7 +54,18 @@ def dp_jump(nums):
     return ret[len(nums)-1]
 
 
+def other_jump(nums):
+    steps = 0
+    front = back = (0, 0)
+    for i in range(len(nums)):
+        reach, steps = front
+        if i+nums[i] > back[0]:
+            back = (i+nums[i], steps+1)
+        if reach == i:
+            front = back
+    return steps
+
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
-
