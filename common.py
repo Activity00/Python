@@ -44,5 +44,3 @@ def min_common(a, b):
 
 if __name__ == '__main__':
     doctest.testmod()
-
-''.count()
