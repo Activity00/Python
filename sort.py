@@ -35,8 +35,15 @@ def select_sort_p(nums):
 
 
 def bubble_sort(nums):
-    pass
-
+    """
+    >>> bubble_sort([1, 4, 7, 2, 5, 8])
+    [1, 2, 4, 5, 7, 8]
+    """
+    for i in range(len(nums)):
+        for j in range(len(nums) - i -1):
+            if nums[j] > nums[j+1]:
+                nums[j], nums[j+1] = nums[j+1], nums[j]
+    return nums
 
 if __name__ == '__main__':
     doctest.testmod()
