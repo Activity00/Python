@@ -59,6 +59,11 @@ def bubble_sort(nums):
     return nums
 
 
+"""
+快速排序
+"""
+
+
 def partication(nums, p, r):
     i = p
     for j in range(p, r+1):
@@ -82,6 +87,37 @@ def fast_sort(nums, p, r):
         fast_sort(nums, q+1, r)
 
 
+def merge(l, r):
+    result = []
+    while l and r:
+        t1 = l.pop(0)
+        t2 = r.pop(0)
+        if t1 < t2:
+            result.append(t1)
+            r.insert(0, t2)
+        else:
+            result.append(t2)
+            l.insert(0, t1)
+    if l:
+        result += l
+    else:
+        result += r
+
+    return result
+
+
+def merge_sort(nums):
+    """
+    >>> merge_sort([1, 3, 7, 2, 5, 8])
+    [1, 2, 3, 5, 7, 8]
+    """
+    if len(nums) == 1:
+        return nums
+    q = len(nums) // 2
+    l = merge_sort(nums[:q])
+    r = merge_sort(nums[q:])
+    return merge(l, r)
+
+
 if __name__ == '__main__':
     doctest.testmod()
-
