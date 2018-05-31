@@ -59,35 +59,29 @@ def bubble_sort(nums):
     return nums
 
 
-def merge_list(l, r):
-    l_l = r_l = 0
-    result = []
-    while l_l < len(l) and r_l < len(r):
-        if l[l_l] > r[r_l]:
-            result.append(r[r_l])
-        else:
-            result.append(l[l_l])
-        l_l += 1
-        r_l += 1
-    if l_l:
-        result += l[l_l:]
-    else:
-        result += r[r_l]
-    return result
+def partication(nums, p, r):
+    i = p
+    for j in range(p, r+1):
+        if nums[j] < nums[r]:
+            nums[j], nums[i] = nums[i], nums[j]
+            i += 1
+    nums[i], nums[r] = nums[r], nums[i]
+    return i
 
 
-def merge_sort(nums):
-    if len(nums) == 1:
-        return nums
-
-    m = len(nums) // 2
-    left = nums[:m]
-    right = nums[m:]
-    l = merge_sort(left)
-    r = merge_sort(right)
-    return merge_list(l, r)
+def fast_sort(nums, p, r):
+    """
+    >>> x = [1,3,5,7,2,4,6,8]
+    >>> fast_sort(x, 0, len(x) - 1)
+    >>> x
+    [1, 2, 3, 4, 5, 6, 7, 8]
+    """
+    if p < r:
+        q = partication(nums, p, r)
+        fast_sort(nums, p, q-1)
+        fast_sort(nums, q+1, r)
 
 
 if __name__ == '__main__':
     doctest.testmod()
-    print(merge_sort([1,3,7,2,5,8]))
+
