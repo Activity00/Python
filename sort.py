@@ -24,7 +24,7 @@ def select_sort(nums):
 
 
 """
-选择排序 记录下标不每次都交换
+选择排序优化 记录下标不每次都交换
 """
 
 
@@ -60,7 +60,7 @@ def bubble_sort(nums):
 
 
 """
-快速排序
+快速排序 两两分区分别排序
 """
 
 
@@ -85,6 +85,10 @@ def fast_sort(nums, p, r):
         q = partication(nums, p, r)
         fast_sort(nums, p, q-1)
         fast_sort(nums, q+1, r)
+
+"""
+归并排序 分治思想，一半一半分割最后合并
+"""
 
 
 def merge(l, r):
@@ -118,6 +122,53 @@ def merge_sort(nums):
     r = merge_sort(nums[q:])
     return merge(l, r)
 
+"""
+插入排序  类似扑克牌从没有排序牌中依次选一张排序
+"""
 
+
+def insert_sort(nums):
+    """
+    >>> insert_sort([1, 3, 7, 2, 5, 8])
+    [1, 2, 3, 5, 7, 8]
+    """
+    for i in range(1, len(nums)):
+        key = nums[i]
+        j = i - 1
+        while j >= 0:
+            if nums[j] > key:
+                nums[j+1] = nums[j]
+                nums[j] = key
+            j -= 1
+    return nums
+
+"""
+希尔排序 插入排序增强版
+"""
+
+
+def shell_sort(nums):
+    """
+    >>> insert_sort([1, 3, 7, 2, 5, 8])
+    [1, 2, 3, 5, 7, 8]
+    """
+    count = len(nums)
+    step = 2
+    group = count / step
+    while group > 0:
+        for i in range(0, group):
+            j = i + group
+            while j < count:
+                k = j - count
+                key = nums[j]
+                while k >= 0:
+                    if nums[k] > key:
+                        nums[k + group] = nums[k]
+                        nums[k] = key
+                    k -= group
+                j += group
+        group /= step
+    return nums
 if __name__ == '__main__':
     doctest.testmod()
+
