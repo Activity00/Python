@@ -169,6 +169,8 @@ def shell_sort(nums):
                 j += group
         group /= step
     return nums
+
+
 if __name__ == '__main__':
     doctest.testmod()
 
