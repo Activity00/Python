@@ -8,12 +8,12 @@ from sklearn.neighbors import NearestNeighbors
 
 if __name__ == '__main__':
     x = [
-        [-1,-1],
-        [-2,-1],
-        [-3,-2],
-        [1,1],
-        [2,1],
-        [3,2],
+        [-1, -1],
+        [-2, -1],
+        [-3, -2],
+        [1, 1],
+        [2, 1],
+        [3, 2],
     ]
     nb = NearestNeighbors().fit(x)
     print(nb.kneighbors_graph(x).toarray())
