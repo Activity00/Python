@@ -5,9 +5,6 @@
 @time: 2018/6/30 9:41
 """
 
-import heapq
-heapq.heapify()
-
 
 def third_max(nums):
     t = list(set(nums))
