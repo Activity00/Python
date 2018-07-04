@@ -59,8 +59,8 @@ def dijkstra(graph, src):
                 if graph[src][v] != float('inf') and graph[v][d] != float('inf'):  # 有边
                     new_distance = graph[src][v]+graph[v][d]
                     if new_distance <= mid_distance:
-                        mid_distance=new_distance
-                        graph[src][d]=new_distance  # 进行距离更新
+                        mid_distance = new_distance
+                        graph[src][d] = new_distance  # 进行距离更新
                         k = d
                         pre = v
         if k != src and temp_k == k:
@@ -133,8 +133,18 @@ def show_status(path):
         print(persons)
 
 
-def find_all_paths(graph, start, end, path=[]):
-    pass
+def find_all_paths(graph, start, end):
+    stack = list()
+    visted = set()
+    stack.append(stack)
+    visted.add(start)
+    while stack:
+        v = stack[-1]
+        for g in graph[v]:
+            if 0 < g < float('inf') and g not in stack and g not in visted:
+                stack.append(g)
+            else:
+                pass
 
 
 if __name__ == '__main__':
@@ -155,7 +165,8 @@ if __name__ == '__main__':
                 if tmp & i ^ tmp == 0 or tmp & i ^ tmp == tmp:
                     states_graph[i][j] = 1  # 连接图中能够能够转换的状态
 
-    distance, path = dijkstra(states_graph, 0)  # 查找从源点0开始到其他节点的最短路径
-    show_process(path[0][255])
-    print('*'*50)
-    show_status(path[0][255])
+    print(dfs())
+    # distance, path = dijkstra(states_graph, 0)  # 查找从源点0开始到其他节点的最短路径
+    # show_process(path[0][255])
+    # print('*'*50)
+    # show_status(path[0][255])
