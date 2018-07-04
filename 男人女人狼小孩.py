@@ -32,28 +32,52 @@
 # 在图中找到一条从 00000000 到 11111111 的路径，即可解决该问题
 
 
-##########################################
-# 数据存储格式：
-# 使用 8 位二进制数进行表示，从高位到低位分别表示男人，男孩，男孩，女人，女孩，女孩，狼的状态 
+PERSONS = ['男人', '男孩1', '男孩2', '女人', '女孩1', '女孩2', '猎人', '狼']
 
 
-# 船允许的所有状态，1 代表在船上
-# 将两个状态进行异或操作，发生变化的位就会置一，则说明置一的位所对应的人是在船上
-# 但是，船的行驶是有方向的，例如从 10000000 到 01000000 的状态是无法通过一次乘船达到的
-# 所以需要进行进一步判断，具体方法见下面的代码
-boatAllowedStates = [
-    0b11000000, 0b10100000, 0b00011000, 0b00010100, 0b10000010,
-    0b01000010, 0b00100010, 0b00010010, 0b00001010, 0b00000110,
-    0b00000011, 0b10010000, 0b10000000, 0b00010000, 0b00000010
-]
+# dijkstra算法实现，有向图和路由的源点作为函数的输入，最短路径最为输出
+def dijkstra(graph, src):
+    if graph is None:
+        return None
+    # 定点集合
+    nodes = [i for i in range(len(graph))]  # 获取顶点列表，用邻接矩阵存储图
+    # 顶点是否被访问
+    visited = list()
+    visited.append(src)
+    # 初始化dis
+    dis = {src: 0}  # 源点到自身的距离为0
+    for i in nodes:
+        dis[i] = graph[src][i]
+    path = {src: {src: []}}  # 记录源节点到每个节点的路径
+    k = pre = src
 
-# 以邻接矩阵的形式存储可能的状态转移情况
-# 矩阵的索引就是用于表示状态的 8 位二进制数（0～255）
-statesGraph = [([0] * 256) for i in range(256)]  # 创建 256x256 二维数组
+    while nodes:
+        temp_k = k
+        mid_distance = float('inf')  # 设置中间距离无穷大
+        for v in visited:
+            for d in nodes:
+                if graph[src][v] != float('inf') and graph[v][d] != float('inf'):  # 有边
+                    new_distance = graph[src][v]+graph[v][d]
+                    if new_distance <= mid_distance:
+                        mid_distance=new_distance
+                        graph[src][d]=new_distance  # 进行距离更新
+                        k = d
+                        pre = v
+        if k != src and temp_k == k:
+            break
+        dis[k] = mid_distance  # 最短路径
+        path[src][k] = [i for i in path[src][pre]]
+        path[src][k].append(k)
+
+        visited.append(k)
+        nodes.remove(k)
+        # print(nodes)
+    return dis, path
 
 
 # 判断是否为危险的状态
 def is_dangerous(x):
+    # 男人，男孩，男孩，女人，女孩，女孩，猎人,狼
     # 第一种不安全的情况：男人不在，女人在，男孩在
     if (x & 0b10000000) == 0 and (x & 0b00010000) != 0 and (x & 0b01100000) != 0:
         return True
@@ -71,46 +95,67 @@ def is_dangerous(x):
         return True
     return False
 
-# 构建该邻接矩阵
-for x in range(0, 256):
-    if is_dangerous(x):      # 判断 x 的状态是否危险 
-        continue 
-    for y in range(0, 256):
-        if is_dangerous(y):  # 判断 y 的状态是否危险
+
+# 船允许的所有状态，1 代表在船上
+# 将两个状态进行异或操作，发生变化的位就会置一，则说明置一的位所对应的人是在船上
+# 但是，船的行驶是有方向的，例如从 10000000 到 01000000 的状态是无法通过一次乘船达到的
+# 男人，男孩，男孩，女人，女孩，女孩，猎人,狼
+boat_allowed_states = [
+    0b11000000, 0b10100000, 0b00011000, 0b00010100, 0b10000010,
+    0b01000010, 0b00100010, 0b00010010, 0b00001010, 0b00000110,
+    0b00000011, 0b10010000, 0b10000000, 0b00010000, 0b00000010,
+    0b10000000, 0b00010000, 0b00000010
+]
+
+
+def convert_to_person(ps):
+    t = []
+    for i, s in enumerate(ps):
+        if s == '1':
+            t.append(PERSONS[i])
+    return ','.join(t)
+
+
+def show_process(path):
+    l = len(path)
+    for i in range(1, l):
+        tmp = path[i] ^ (path[i - 1])
+        persons = convert_to_person('{0:08b}'.format(tmp))
+        if i % 2 == 0:
+            print(persons, '---回来')
+        else:
+            print(persons, '---过对岸')
+
+
+def show_status(path):
+    for p in path:
+        persons = convert_to_person('{0:08b}'.format(p))
+        print(persons)
+
+
+def find_all_paths(graph, start, end, path=[]):
+    pass
+
+
+if __name__ == '__main__':
+    states_graph = [[float('inf')] * 256 for i in range(256)]  # 创建 256x256 二维数组
+    for i in range(256):
+        states_graph[i][i] = 0
+    for i in range(256):
+        if is_dangerous(i):
             continue
-        # 如果通过坐船，可以使状态 x 转变为状态 y, 则使矩阵对应位置为 1
-        tmp = x ^ y
-        if tmp in boatAllowedStates: 
-            # 进一步判断，排除类似 10000000 到 01000000 的情况
-            if tmp & x ^ tmp == 0 or tmp & x ^ tmp == tmp:
-                statesGraph[x][y] = 1    # 连接图中能够能够转换的状态
+        for j in range(256):
+            if is_dangerous(j):
+                continue
+            # 如果通过坐船，可以使状态 x 转变为状态 y, 则使矩阵对应位置为 1
+            tmp = i ^ j
+            if tmp in boat_allowed_states:
+                # 进一步判断，排除类似 10000000 到 01000000 的情况
+                # 都是本岸 or 都是对岸
+                if tmp & i ^ tmp == 0 or tmp & i ^ tmp == tmp:
+                    states_graph[i][j] = 1  # 连接图中能够能够转换的状态
 
-# 通过图的深度优先搜索算法，找出一条从 0b00000000 到 0b11111111 的路径
-# ⚠TODO: 
-# 此时仅仅是找到了一条能够到达的路径，不一定是最佳的结果
-# 可考虑直接找出所有可行的结果
-# 或使用最短路径算法，找出乘船次数最少的结果
-visited = [0] * 256 # 用在图的深度优先搜索中，已访问的状态
-path = [257] * 256  # 用于存储路径，数组内元素为下一个状态, 257 代表尚未初始化
-
-
-def dfs_with_path(src):
-    visited[src] = 1
-    for i in range(0, 256):
-        if statesGraph[src][i] == 1 and visited[i] == 0 and visited[0b11111111] == 0:
-            path[src] = i
-            dfs_with_path(i)
-
-dfs_with_path(0b00000000)
-
-# 将路径显示在屏幕上
-tmp_path = 0
-while tmp_path != 0b11111111:
-    print('{0:08b}'.format(tmp_path))
-    tmp_path = path[tmp_path]
-    if tmp_path == 257:
-        # 257 在本程序中代表未初始化的值，如果遇到 257，说明没找到这样的路径
-        print("Not found!")
-        exit()
-print('{0:08b}'.format(0b11111111))
-print("Found!")
+    distance, path = dijkstra(states_graph, 0)  # 查找从源点0开始到其他节点的最短路径
+    show_process(path[0][255])
+    print('*'*50)
+    show_status(path[0][255])
