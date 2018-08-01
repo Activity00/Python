@@ -13,5 +13,6 @@ def third_max(nums):
     t.sort(reverse=True)
     return t[2]
 
+
 if __name__ == '__main__':
     pass

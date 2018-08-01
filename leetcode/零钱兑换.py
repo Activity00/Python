@@ -32,5 +32,6 @@ def coinChange(coins, amount):
         dp[i] = min([dp[i-j]+1 for j in coins if i-j >= 0], default=-1)
     return dp[-1]
 
+
 if __name__ == '__main__':
     print(coinChange([1, 2, 5], 11))
