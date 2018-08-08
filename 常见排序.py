@@ -143,6 +143,33 @@ def insert_sort(nums):
     return nums
 
 """
+插入排序递归实现
+"""
+
+
+def insert_sort_recursive(nums, p):
+    """
+    >>> a = [1, 3, 7, 2, 5, 8]
+    >>> insert_sort_recursive(a, len(a)-1)
+    >>> a
+    [1, 2, 3, 5, 7, 8]
+    """
+    if p > 0:
+        insert_sort_recursive(nums, p-1)
+        insert(nums, p)
+
+
+def insert(nums, p):
+    key = nums[p]
+    j = p - 1
+    while j >= 0:
+        if nums[j] > key:
+            nums[j + 1] = nums[j]
+            nums[j] = key
+        j -= 1
+
+
+"""
 希尔排序 插入排序增强版
 """
 
