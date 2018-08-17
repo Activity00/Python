@@ -104,37 +104,61 @@ http://shapan.test01.aragoncs.cn/get-room-info/?room_id=1
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     [0, {"army_type": "g", "hp": 1000, "order": 12, "direction": 2, "player_id": 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, {"army_type": "g", "hp": 1000, "order": 13, "direction": 6, "player_id": 101}, 0], [0, 0, 0, {"army_type": "q", "hp": 1000, "order": 6, "direction": 2, "player_id": 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, {"army_type": "q", "hp": 1000, "order": 7, "direction": 6, "player_id": 101}, 0, 0, 0], 
     [0, {"army_type": "g", "hp": 1000, "order": 14, "direction": 2, "player_id": 1}, 0, 0, {"army_type": "q", "hp": 1000, "order": 2, "direction": 2, "player_id": 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, {"army_type": "q", "hp": 1000, "order": 3, "direction": 6, "player_id": 101}, 0, 0, {"army_type": "g", "hp": 1000, "order": 15, "direction": 6, "player_id": 101}, 0], [0, 0, 0, {"army_type": "q", "hp": 1000, "order": 8, "direction": 2, "player_id": 1}, 0, {"army_type": "q", "hp": 1000, "order": 0, "direction": 2, "player_id": 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, {"army_type": "q", "hp": 1000, "order": 1, "direction": 6, "player_id": 101}, 0, {"army_type": "q", "hp": 1000, "order": 9, "direction": 6, "player_id": 101}, 0, 0, 0], [0, {"army_type": "g", "hp": 1000, "order": 16, "direction": 2, "player_id": 1}, 0, 0, {"army_type": "q", "hp": 1000, "order": 4, "direction": 2, "player_id": 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, {"army_type": "q", "hp": 1000, "order": 5, "direction": 6, "player_id": 101}, 0, 0, {"army_type": "g", "hp": 1000, "order": 17, "direction": 6, "player_id": 101}, 0], [0, 0, 0, {"army_type": "q", "hp": 1000, "order": 10, "direction": 2, "player_id": 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, {"army_type": "q", "hp": 1000, "order": 11, "direction": 6, "player_id": 101}, 0, 0, 0], [0, {"army_type": "g", "hp": 1000, "order": 18, "direction": 2, "player_id": 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, {"army_type": "g", "hp": 1000, "order": 19, "direction": 6, "player_id": 101}, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], "step": 1, "winner": -1, "server_time": 1533787004.0226169, "last_step_time": 1533787003.9126441}
+    
+游戏中，每一个移动周期，称为1步，在get room info中，通过step返回
+step <= 50，每5步，左右压缩
+step > 50，每5步，四周压缩
+    
 """
 PLAYER_ID = 4
 ROOM_ID = 4
 POSITION = 0
 EMPTY_ID = 104
-INFORMATION = '0000000000q0000000000000000000q0q00000000000000000q0q0q000000000000000g0g0g0g0000000'
+# #############$$$$$$$$$$$$$$$$$$$$$#####################$$$$$$$$$$$$$$$$$$$$$#####################
+INFORMATION = '00000000g0g0g000000000000000000q0q0q00000000000000g000g000000000000000b0b00000000000'
 
 
 class Solider:
-    def __init__(self, order, position, hp, direction):
+    def __init__(self, order, position, hp, direction, manager):
         self.order = order
         self.position = position
         self.hp = hp
         self.direction = direction
+        self.manager = manager
 
-    def act(self, solider):
+    @property
+    def attack(self):
+        return int(self.hp * 0.1)
+
+    def next_direction(self):
+        enemy = self.manager.nearlest_enemy(self)
+        return self.direction(enemy)
+
+    def in_attack_range(self):
+        pass
+
+    def direction(self, enemy):
         raise NotImplementedError
 
 
 class GSolider(Solider):
-    def act(self, solider):
+    attack_range = 4
+
+    def direction(self, enemy):
         pass
 
 
 class QSolider(Solider):
-    def act(self, solider):
+    attack_range = 2
+
+    def direction(self, enemy):
         pass
 
 
 class BSolider(Solider):
-    def act(self, solider):
+    attack_range = 1
+
+    def direction(self, enemy):
         pass
 
 
@@ -148,6 +172,12 @@ class Manager:
         self.enemies = {}
         self.battleground = [[0]*41]*21
         self.last_upd_time = 0  # 上次更新时间
+
+    def reset_room(self):
+        try:
+            requests.get('http://shapan.test01.aragoncs.cn/reset-room/?room_id={}'.format(self.room_id))
+        except TimeoutError:
+            print('重置房间超时')
 
     def enter_room(self, information):
         try:
@@ -190,17 +220,21 @@ class Manager:
 
             self.battleground = response.get('battleground')
             self._update_soliders()     # 更新士兵对象
-            self._optimal_direction()   # 计算每个士兵最优方向
             self._directions()          # 设置最优方向
 
     def _directions(self):
-        response = requests.post(
-            'http://shapan.test01.aragoncs.cn/set-army-directions/?room_id={}&player_id={}&directions={}'.
-                format(self.room_id, self.player_id, '6666666666'))
-
-    def _optimal_direction(self):
+        ds = {}
         for hero in self.heros:
-            pass
+            ds[hero.order] = str(hero.next_directions())
+        directions = ''
+        for i in range(10):
+            directions += ds.get(i, 0)
+        try:
+            requests.post(
+                'http://shapan.test01.aragoncs.cn/set-army-directions/?room_id={}&player_id={}&directions={}'.
+                    format(self.room_id, self.player_id, directions))
+        except Exception as e:
+            print('设置方向错误', e)
 
     def _update_soliders(self):
         # 21 * 41
@@ -217,13 +251,13 @@ class Manager:
                     continue
                 if p.get('army_type') == 'q':
                     solider = QSolider(order=p.get('order'), position=(i, j), hp=p.get('hp'),
-                                       direction=p.get('direction'))
+                                       direction=p.get('direction'), manager=self)
                 elif p.get('army_type') == 'g':
                     solider = GSolider(order=p.get('order'), position=(i, j), hp=p.get('hp'),
-                                       direction=p.get('direction'))
+                                       direction=p.get('direction'), manager=self)
                 else:
                     solider = BSolider(order=p.get('order'), position=(i, j), hp=p.get('hp'),
-                                       direction=p.get('direction'))
+                                       direction=p.get('direction'), manager=self)
 
                 if p.get('player_id') == PLAYER_ID:
                     heros[solider.order] = solider
@@ -232,9 +266,21 @@ class Manager:
         self.heros = heros
         self.enemies = enemies
 
+    def nearlest_enemy(self, solider):
+        position = solider.position
+        _enemy = None
+        near_dis = float('inf')
+        for order, enemy in self.enemies.items():
+            dis = (position[0] - enemy.position[0])**2 + (position[1] - enemy.position[1])**2
+            if dis < near_dis:
+                near_dis = dis
+                _enemy = enemy
+        return _enemy
+
 
 if __name__ == '__main__':
     manager = Manager(ROOM_ID, PLAYER_ID, POSITION)
+    manager.reset_room()
     if manager.enter_room(INFORMATION):
         manager.start()
 
