@@ -4,6 +4,7 @@
 @author: 武明辉 
 @time: 18-8-8 下午7:01
 """
+import math
 import time
 
 import requests
@@ -110,12 +111,35 @@ step <= 50，每5步，左右压缩
 step > 50，每5步，四周压缩
     
 """
-PLAYER_ID = 4
-ROOM_ID = 4
-POSITION = 0
-EMPTY_ID = 104
+PLAYER_ID = 6
+ROOM_ID = 19
+POSITION = 1
+EMPTY_ID = 9
 # #############$$$$$$$$$$$$$$$$$$$$$#####################$$$$$$$$$$$$$$$$$$$$$#####################
 INFORMATION = '00000000g0g0g000000000000000000q0q0q00000000000000g000g000000000000000b0b00000000000'
+
+
+def calc_angle(x_point_s, y_point_s, x_point_e, y_point_e):
+    angle = 0
+    y_se = y_point_e-y_point_s
+    x_se = x_point_e-x_point_s
+    if x_se == 0 and y_se > 0:
+        angle = 360
+    if x_se == 0 and y_se < 0:
+        angle = 180
+    if y_se == 0 and x_se > 0:
+        angle = 90
+    if y_se == 0 and x_se < 0:
+        angle = 270
+    if x_se > 0 and y_se > 0:
+       angle = math.atan(x_se/y_se)*180/math.pi
+    elif x_se < 0 and y_se > 0:
+       angle = 360 + math.atan(x_se/y_se)*180/math.pi
+    elif x_se<0 and y_se<0:
+       angle = 180 + math.atan(x_se/y_se)*180/math.pi
+    elif x_se>0 and y_se<0:
+       angle = 180 + math.atan(x_se/y_se)*180/math.pi
+    return angle
 
 
 class Solider:
@@ -137,29 +161,60 @@ class Solider:
     def in_attack_range(self):
         pass
 
+    def enemy_target(self, enemy):
+        target = 2
+        du = calc_angle(self.position[0], self.position[1], enemy.position[0], enemy.position[1])
+        if du <= 23 or du >= 338:
+            target = 4
+        elif 22 <= du <= 68:
+            target = 3
+        elif 68 <= du <= 113:
+            target = 2
+        elif 113 <= du <= 157:
+            target = 1
+        elif 157 <= du <= 203:
+            target = 7
+        elif 203 <= du <= 225:
+            target = 6
+        elif 226 <= du <= 337:
+            target = 5
+        return target
+
     def direction(self, enemy):
-        raise NotImplementedError
+        target = self.enemy_target(enemy)
+        if self.is_wall(target):
+            target = target - 4 if target + 4 > 7 else target + 4
+        return target
+
+    def is_wall(self, target):
+        if target == 0:
+            return self.manager.is_wall(self.position[0], self.position[1]-2)
+        elif target == 1:
+            return self.manager.is_wall(self.position[0]+2, self.position[1]-2)
+        elif target == 2:
+            return self.manager.is_wall(self.position[0] + 2, self.position[1])
+        elif target == 3:
+            return self.manager.is_wall(self.position[0] + 2, self.position[1]+2)
+        elif target == 4:
+            return self.manager.is_wall(self.position[0], self.position[1]+2)
+        elif target == 5:
+            return self.manager.is_wall(self.position[0]-2, self.position[1]+2)
+        elif target == 6:
+            return self.manager.is_wall(self.position[0]-2, self.position[1])
+        elif target == 7:
+            return self.manager.is_wall(self.position[0]-2, self.position[1]+2)
 
 
 class GSolider(Solider):
     attack_range = 4
 
-    def direction(self, enemy):
-        pass
-
 
 class QSolider(Solider):
     attack_range = 2
 
-    def direction(self, enemy):
-        pass
-
 
 class BSolider(Solider):
     attack_range = 1
-
-    def direction(self, enemy):
-        pass
 
 
 class Manager:
@@ -225,7 +280,7 @@ class Manager:
     def _directions(self):
         ds = {}
         for hero in self.heros:
-            ds[hero.order] = str(hero.next_directions())
+            ds[hero.order] = str(hero.next_direction())
         directions = ''
         for i in range(10):
             directions += ds.get(i, 0)
@@ -276,6 +331,9 @@ class Manager:
                 near_dis = dis
                 _enemy = enemy
         return _enemy
+
+    def is_wall(self, x, y):
+        return self.battleground[x][y] == -1
 
 
 if __name__ == '__main__':
