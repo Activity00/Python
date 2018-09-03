@@ -32,7 +32,7 @@ def find_max_subarray(nums, p, r):
     """
     >>> a = [1, 3, 7, 2, 5, 8]
     >>> find_max_subarray(a, 0, len(a)-1)
-    >>>
+    ((1, 4), 17)
     """
     if p == r:
         return (p, r), nums[p]
@@ -53,5 +53,6 @@ def find_max_subarry_n(nums):
 
 
 if __name__ == '__main__':
-    a = [1, 3, 7, 2, 5, 8]
-    print(find_max_subarray(a, 0, len(a)-1))
+    import doctest
+    doctest.testmod()
+
