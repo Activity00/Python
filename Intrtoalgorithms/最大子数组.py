@@ -29,11 +29,6 @@ def cross_mid(nums, p, r, m):
 
 
 def find_max_subarray(nums, p, r):
-    """
-    >>> a = [1, 3, 7, 2, 5, 8]
-    >>> find_max_subarray(a, 0, len(a)-1)
-    ((1, 4), 17)
-    """
     if p == r:
         return (p, r), nums[p]
     m = (p + r) // 2
@@ -48,11 +43,48 @@ def find_max_subarray(nums, p, r):
     return mx
 
 
+# *******************线性时间复杂度**************************
+
 def find_max_subarry_n(nums):
+    mx = tmp = nums[0]
+    for i in range(1, len(nums)):
+        tmp = tmp + nums[i] if tmp > 0 else nums[i]
+        mx = tmp if tmp > mx else mx
+    return mx
+
+
+def find_max_subarry_n_plus(nums):
+    mx = tmp = nums[0]
+    l = r = 0
+    for i in range(1, len(nums)):
+        if tmp > 0:
+            tmp += nums[i]
+        else:
+            tmp = nums[i]
+            l = i
+        if tmp > mx:
+            mx = tmp
+            r = i
+    return (l, r), mx
+
+
+def test_case():
+    """
+    >>> a = [1, 3, 7, 2, 5, 8]
+    >>> print(find_max_subarry_n(a))
+    26
+    >>> a = [1, 3, 7, 2, 5, 8]
+    >>> print(find_max_subarry_n_plus(a))
+    ((0, 5), 26)
+
+    # >>> a = [1, 3, 7, 2, 5, 8]
+    # >>> find_max_subarray(a, 0, len(a)-1)
+    # ((0, 5), 26)
+    """
     pass
 
 
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
-
+    print(find_max_subarry_n([3, -1, 7, 2, 5, 8]))
