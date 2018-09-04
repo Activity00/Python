@@ -15,14 +15,16 @@ def cross_mid(nums, p, r, m):
     for i in reversed(range(p, m)):
         if nums[i] + ltemp > lmx:
             lmx = nums[i] + ltemp
+            ltemp += nums[i]
             lt = i
 
     rmx = nums[m+1]
     rtemp = nums[m+1]
     rt = m + 1
-    for i in range(m+1, r):
+    for i in range(m+2, r+1):
         if nums[i] + rtemp > rmx:
             rmx = nums[i] + rtemp
+            rtemp += nums[i]
             rt = i
 
     return (lt, rt), lmx + rmx
@@ -77,9 +79,9 @@ def test_case():
     >>> print(find_max_subarry_n_plus(a))
     ((0, 5), 26)
 
-    # >>> a = [1, 3, 7, 2, 5, 8]
-    # >>> find_max_subarray(a, 0, len(a)-1)
-    # ((0, 5), 26)
+    >>> a = [1, 3, 7, 2, 5, 8]
+    >>> find_max_subarray(a, 0, len(a)-1)
+    ((0, 5), 26)
     """
     pass
 
@@ -88,3 +90,5 @@ if __name__ == '__main__':
     import doctest
     doctest.testmod()
     print(find_max_subarry_n([3, -1, 7, 2, 5, 8]))
+    a = [1, 3, 7, 2, 5, 8]
+    print(cross_mid(a, 0, 5, 3))
