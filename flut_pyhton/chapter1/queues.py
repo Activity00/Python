@@ -19,6 +19,6 @@ if __name__ == '__main__':
     print(dq)
     dq.appendleft(-1)
     print(dq)
-    dq.extend([11,22,33])
+    dq.extend([11, 22, 33])
     print(dq)
-    dq.extendleft([10,20])
+    dq.extendleft([10, 20])

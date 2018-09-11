@@ -23,6 +23,36 @@ class Solution:
         :rtype: int
         """
         nums.sort()
+        count = len(nums)
+        num = nums[0] + nums[1] + nums[count-1]
+        _min = abs(num - target)
+        for i in range(count-2):
+            j = i + 1
+            k = count - 1
+
+            if nums[i] + nums[k] + nums[k - 1] - target < 0:
+                if abs(nums[i] + nums[k] + nums[k - 1] - target) < _min:
+                    num = nums[i] + nums[k] + nums[k - 1]
+                    _min = abs(nums[i] + nums[k] + nums[k - 1] - target)
+                elif nums[i] + nums[k] + nums[k - 1] - target == 0:
+                    return num
+                continue
+
+            while j < k:
+                _sum = sum([nums[i],  nums[j], nums[k]])
+                s = _sum - target
+                abs_s = abs(s)
+                if abs_s < _min:
+                    num = _sum
+                    _min = abs_s
+
+                if s > 0:
+                    k -= 1
+                elif s < 0:
+                    j += 1
+                else:
+                    return num
+        return num
 
 
 def test_case():
@@ -35,5 +65,7 @@ def test_case():
 
 
 if __name__ == '__main__':
+    s = Solution()
+    s.threeSumClosest([-1, 2, 1, -4], 1)
     import doctest
     doctest.testmod()
