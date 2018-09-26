@@ -223,6 +223,45 @@ def counting_sort(nums):
     return ret_list
 
 
+"""
+基数排序
+"""
+
+
+def radix_sort(nums, d=3):  # 默认三位数，如果是四位数，则d=4，以此类推
+    """
+    >>> a = [123, 789, 456]
+    >>> radix_sort(a)
+    [123, 456, 789]
+    """
+    for i in range(d):  # d轮排序
+        s = [[] for _ in range(10)]  # 因每一位数字都是0~9，建10个桶
+        for j in nums:
+            s[int(j / (10 ** i)) % 10].append(j)
+        ret = [a for b in s for a in b]
+    return ret
+
+"""
+桶排序
+"""
+
+
+def bucket_sort(a):
+    """
+    >>> a = [123, 789, 456]
+    >>> radix_sort(a)
+    [123, 456, 789]
+    """
+    buckets = [0] * ((max(a) - min(a)) + 1)  # 初始化桶元素为0
+    for i in range(len(a)):
+        buckets[a[i] - min(a)] += 1  # 遍历数组a，在桶的相应位置累加值
+    b = []
+    for i in range(len(buckets)):
+        if buckets[i] != 0:
+            b += [i + min(a)] * buckets[i]
+    return b
+
+
 if __name__ == '__main__':
     doctest.testmod()
 
