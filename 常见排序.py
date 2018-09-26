@@ -198,6 +198,31 @@ def shell_sort(nums):
     return nums
 
 
+'''
+计数排序
+'''
+
+
+def counting_sort(nums):
+    """
+    >>> nums = [6, 0, 2, 0, 1, 3, 4, 6, 1, 3, 2]
+    >>> counting_sort(nums)
+    [0, 0, 1, 1, 2, 2, 3, 3, 4, 6, 6]
+    """
+    temp_list = [0] * (max(nums)+1)
+    ret_list = [0] * len(nums)
+    for i in nums:
+        temp_list[i] += 1
+
+    for i in range(1, len(temp_list)):
+        temp_list[i] += temp_list[i-1]
+
+    for i in nums:
+        ret_list[temp_list[i]-1] = i
+        temp_list[i] -= 1
+    return ret_list
+
+
 if __name__ == '__main__':
     doctest.testmod()
 

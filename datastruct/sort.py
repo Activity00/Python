@@ -48,11 +48,9 @@ def quick_sort(lists,left,right):
     quick_sort(lists, low, left-1)
     quick_sort(lists, left+1, high)
     return lists
-    
-    
 
-lists=[5,4,3,2,1]  
-print '插入排序:',insert_sort(lists)
-print '冒泡排序:',bubble_sort(lists)
-print '快速排序:',quick_sort(lists, 0, 4)
 
+lists = [5, 4, 3, 2, 1]
+print('插入排序:', insert_sort(lists))
+print('冒泡排序:', bubble_sort(lists))
+print('快速排序:', quick_sort(lists, 0, 4))
