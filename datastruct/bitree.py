@@ -1,66 +1,86 @@
-#-*-coding:utf-8-*-
-#！usr/bin/env python
-'''
+# -*-coding:utf-8-*-
+# ！usr/bin/env python
+"""
 Created on 2017年3月3日
 二叉树的使用
 @author: 武明辉
-'''
+"""
+
 
 class BitNode(object):
-    def __init__(self,data=None,left=None,right=None):
-        self._data=data
-        self._left=left
-        self._right=right
-    
-    @property
-    def left(self):
-        return self._left
-    @left.setter
-    def left(self,value):
-        self._left=value
-    @property
-    def right(self):
-        return self._right
-    @right.setter
-    def right(self,value):
-        self._right=value
-    @property
-    def data(self):
-        return self._data
-    @data.setter
-    def data(self,value):
-        self._data=value
+    def __init__(self, data=None, left=None, right=None):
+        self.data = data
+        self.left = left
+        self.right = right
+
     
 class BiTree(object):
-    def __init__(self,root):
-        self.root=root
-        
-    def createTree(self,root):
-        data=raw_input('请输入：')
-        if len(data)==0:
-            root=None
+    def __init__(self, root):
+        self.root = root
+
+    def create_tree(self, root):
+        data = input('请输入：')
+        if not data:
+            root.data = None
         else:
-            root.data=data
-            root.left=BitNode()
-            self.createTree(root.left)
-            root.right=BitNode()
-            self.createTree(root.right)
-                
-    
-    def preTraverse(self,root):
-        if root:
-            if root.data:
-                print root.data
-                self.preTraverse(root.left)
-                self.preTraverse(root.right)
-            
+            root.data = data
+            root.left = BitNode()
+            self.create_tree(root.left)
+            root.right = BitNode()
+            self.create_tree(root.right)
 
-root=BitNode()
-tree=BiTree(root)
-tree.createTree(tree.root)
-tree.preTraverse(root)
+    def pre_traverse(self, root):
+        if root and root.data:
+            print(root.data)
+            self.pre_traverse(root.left)
+            self.pre_traverse(root.right)
+
+    def in_traverse(self, root):
+        if root and root.data:
+            self.in_traverse(root.left)
+            print(root.data)
+            self.in_traverse(root.right)
+
+    def post_traverse(self, root):
+        if root and root.data:
+            self.post_traverse(root.left)
+            self.post_traverse(root.right)
+            print(root.data)
+
+    def traverse_without_recursion(self):
+        r = self.root
+        s = []
+        while r or s:
+            while r:
+                print(r.data)
+                s.append(r)
+                r = r.left
+            if s:
+                t = s.pop()
+                r = t.right
 
 
-
-        
-        
+if __name__ == '__main__':
+    """
+           A
+          / \
+         B   C
+        / \  /
+       D   E F
+    """
+    n1 = BitNode(data="D")
+    n2 = BitNode(data="E")
+    n3 = BitNode(data="F")
+    n4 = BitNode(data="B", left=n1, right=n2)
+    n5 = BitNode(data="C", left=n3, right=None)
+    root = BitNode(data="A", left=n4, right=n5)
+    tree = BiTree(root)
+    # tree.create_tree(tree.root)
+    print('先序遍历')
+    tree.pre_traverse(root)
+    print('中序遍历')
+    tree.in_traverse(root)
+    print('后续遍历')
+    tree.post_traverse(root)
+    print('非递归先序遍历')
+    tree.traverse_without_recursion()
