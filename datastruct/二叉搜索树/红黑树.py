@@ -2,36 +2,23 @@
 
 """
 @author: 武明辉 
-@time: 18-9-28 上午9:35
+@time: 18-9-29 下午5:29
 """
 """
-*                      1
-
- *
-* *                    3 
-
-
-   *    
- *   *   
-* * * *               7
-
-       *
-   *       *
- *   *   *   *
-* * * * * * * *      15       
-
+满足红黑性质的二叉搜索树
 """
 
 
 class BitNode(object):
-    def __init__(self, data=None, left=None, right=None, parent=None):
+    def __init__(self, color, data, left=None, right=None, parent=None):
         self.data = data
         self.left = left
         self.right = right
         self.parent = parent
+        self.color = color
 
     def __str__(self):
-        return 'BiteNode({})'.format(self.data)
+        return 'BiteNode({}:{})'.format(self.color, self.data)
 
 
 class BiTree(object):
@@ -222,3 +209,6 @@ if __name__ == '__main__':
     tree.insert(root, BitNode(data=8))
     tree.print_tree(root)
 
+
+if __name__ == '__main__':
+    pass
