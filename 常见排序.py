@@ -4,6 +4,8 @@
 @author: 武明辉 
 @time: 2018/5/29 10:06
 """
+import operator
+import random
 import doctest
 
 """
@@ -13,11 +15,14 @@ import doctest
 
 def select_sort(nums):
     """
-    >>> select_sort([1, 4, 7, 2, 5, 8])
-    [1, 2, 4, 5, 7, 8]
+    >>> nums = random.sample(range(10), 10)
+    >>> target = select_sort(nums)
+    >>> operator.eq(target, sorted(nums))
+    True
     """
-    for i in range(len(nums)):
-        for j in range(i+1, len(nums)):
+    count = len(nums)
+    for i in range(count):
+        for j in range(i+1, count):
             if nums[i] > nums[j]:
                 nums[i], nums[j] = nums[j], nums[i]
     return nums
@@ -30,31 +35,37 @@ def select_sort(nums):
 
 def select_sort_p(nums):
     """
-    >>> select_sort_p([1, 4, 7, 2, 5, 8])
-    [1, 2, 4, 5, 7, 8]
+    >>> nums = random.sample(range(10), 10)
+    >>> target = select_sort_p(nums)
+    >>> operator.eq(target, sorted(nums))
+    True
     """
     count = len(nums)
     for i in range(count):
         m = i
         for j in range(i+1, count):
-            if nums[m] > nums[j]:
+            if nums[j] < nums[m]:
                 m = j
         nums[i], nums[m] = nums[m], nums[i]
     return nums
+
 
 """
 冒泡排序, 相邻两两交换把最大/小放在后面
 """
 
 
-def bubble_sort(nums):
+def buble_sort(nums):
     """
-    >>> bubble_sort([1, 4, 7, 2, 5, 8])
-    [1, 2, 4, 5, 7, 8]
+    >>> nums = random.sample(range(10), 10)
+    >>> target = buble_sort(nums)
+    >>> operator.eq(target, sorted(nums))
+    True
     """
-    for i in range(len(nums)):
-        for j in range(len(nums) - i - 1):
-            if nums[j] > nums[j+1]:
+    count = len(nums)
+    for i in range(count):
+        for j in range(count-i-1):
+            if nums[j+1] < nums[j]:
                 nums[j], nums[j+1] = nums[j+1], nums[j]
     return nums
 
@@ -70,21 +81,21 @@ def partication(nums, p, r):
         if nums[j] < nums[r]:
             nums[j], nums[i] = nums[i], nums[j]
             i += 1
-    nums[i], nums[r] = nums[r], nums[i]
+    nums[r], nums[i] = nums[i], nums[r]
     return i
 
 
-def fast_sort(nums, p, r):
+def quick_sort(nums, p, r):
     """
-    >>> x = [1,3,5,7,2,4,6,8]
-    >>> fast_sort(x, 0, len(x) - 1)
-    >>> x
-    [1, 2, 3, 4, 5, 6, 7, 8]
+    >>> nums = random.sample(range(10), 10)
+    >>> quick_sort(nums, 0, len(nums)-1)
+    >>> operator.eq(nums, sorted(nums))
+    True
     """
     if p < r:
         q = partication(nums, p, r)
-        fast_sort(nums, p, q-1)
-        fast_sort(nums, q+1, r)
+        quick_sort(nums, p, q-1)
+        quick_sort(nums, q+1, r)
 
 """
 归并排序 分治思想，一半一半分割最后合并
@@ -92,35 +103,34 @@ def fast_sort(nums, p, r):
 
 
 def merge(l, r):
-    result = []
+    ret = []
     while l and r:
-        t1 = l.pop(0)
-        t2 = r.pop(0)
-        if t1 < t2:
-            result.append(t1)
-            r.insert(0, t2)
+        if l[0] > r[0]:
+            ret.append(r.pop(0))
         else:
-            result.append(t2)
-            l.insert(0, t1)
+            ret.append(l.pop(0))
+    if r:
+        ret += r
     if l:
-        result += l
-    else:
-        result += r
-
-    return result
+        ret += l
+    return ret
 
 
 def merge_sort(nums):
     """
-    >>> merge_sort([1, 3, 7, 2, 5, 8])
-    [1, 2, 3, 5, 7, 8]
+    >>> nums = random.sample(range(10), 10)
+    >>> target = merge_sort(nums)
+    >>> operator.eq(target, sorted(nums))
+    True
     """
     if len(nums) == 1:
         return nums
+
     q = len(nums) // 2
-    l = merge_sort(nums[:q])
-    r = merge_sort(nums[q:])
+    l = merge_sort(nums[q:])
+    r = merge_sort(nums[:q])
     return merge(l, r)
+
 
 """
 插入排序  类似扑克牌从没有排序牌中依次选一张排序
@@ -141,6 +151,7 @@ def insert_sort(nums):
                 nums[j] = key
             j -= 1
     return nums
+
 
 """
 插入排序递归实现
@@ -176,25 +187,25 @@ def insert(nums, p):
 
 def shell_sort(nums):
     """
-    >>> insert_sort([1, 3, 7, 2, 5, 8])
-    [1, 2, 3, 5, 7, 8]
+    >>> nums = random.sample(range(10), 10)
+    >>> target = shell_sort(nums)
+    >>> operator.eq(target, sorted(nums))
+    True
     """
     count = len(nums)
     step = 2
-    group = count / step
+    group = count // step
     while group > 0:
-        for i in range(0, group):
-            j = i + group
-            while j < count:
-                k = j - count
+        for i in range(group):
+            for j in range(i+group, count, group):
                 key = nums[j]
-                while k >= 0:
-                    if nums[k] > key:
-                        nums[k + group] = nums[k]
-                        nums[k] = key
+                k = j
+                while k > i and nums[k] < nums[k-group]:
+                    nums[k] = nums[k-group]
+                    nums[k-group] = key
                     k -= group
-                j += group
-        group /= step
+
+        group //= step
     return nums
 
 
@@ -264,4 +275,3 @@ def bucket_sort(a):
 
 if __name__ == '__main__':
     doctest.testmod()
-
