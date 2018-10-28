@@ -8,41 +8,31 @@
 # ******************分治递归*************************
 
 
-def cross_mid(nums, p, r, m):
-    lmx = nums[m]
-    ltemp = nums[m]
-    lt = m
-    for i in reversed(range(p, m)):
-        if nums[i] + ltemp > lmx:
-            lmx = nums[i] + ltemp
-            ltemp += nums[i]
-            lt = i
+def find_cross_mid(nums, p, r, m):
+    """
+    >>> nums = [1, -3, 7, 2, -5, 8]
+    >>> find_cross_mid(nums, 0, len(nums)-1, (len(nums)-1)//2)
+    (2, 5, 12)
+    >>> find_cross_mid([3, -1, 7, 2, 5, 8], 0, 5, 2)
+    (0, 5, 24)
+    """
+    tl = m
+    lmax = ltmp = nums[m]
+    for i in range(m-1, p-1, -1):
+        ltmp += nums[i]
+        if nums[i] > 0 and ltmp > lmax:
+            lmax = ltmp
+            tl = i
 
-    rmx = nums[m+1]
-    rtemp = nums[m+1]
-    rt = m + 1
+    tr = m + 1
+    rmax = rtmp = nums[tr]
     for i in range(m+2, r+1):
-        if nums[i] + rtemp > rmx:
-            rmx = nums[i] + rtemp
-            rtemp += nums[i]
-            rt = i
+        rtmp += nums[i]
+        if nums[i] > 0 and rtmp > rmax:
+            rmax = rtmp
+            tr = i
 
-    return (lt, rt), lmx + rmx
-
-
-def find_max_subarray(nums, p, r):
-    if p == r:
-        return (p, r), nums[p]
-    m = (p + r) // 2
-    left = find_max_subarray(nums, p, m)
-    right = find_max_subarray(nums, m+1, r)
-    mid = cross_mid(nums, p, r, m)
-    mx = left
-    if right[1] > mx[1]:
-        mx = right
-    if mid[1] > mx[1]:
-        mx = mid
-    return mx
+    return tl, tr, lmax + rmax
 
 
 # *******************线性时间复杂度**************************
