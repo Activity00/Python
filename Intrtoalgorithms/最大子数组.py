@@ -5,6 +5,31 @@
 @time: 18-8-31 上午8:39
 """
 
+# ******************暴力计算*************************
+
+
+def find_max_subarry_violent(nums):
+    """
+    >>> nums = [1,-2,3,10,-4,7,2,-48]
+    >>> find_max_subarry_violent(nums)
+    (2, 6, 18)
+    >>> nums = [3,-1, 5, -1, 9, -20, 21, -20, 20, 21]
+    >>> find_max_array_n_time(nums)
+    (6, 9, 42)
+    """
+    count = len(nums)
+    mx = nums[0]
+    left = right = 0
+    for i in range(count):
+        for j in range(i, count):
+            sm = sum(nums[i:j+1])
+            if sm > mx:
+                mx = sm
+                left = i
+                right = j
+    return left, right, mx
+
+
 # ******************分治递归*************************
 
 
@@ -65,40 +90,37 @@ def find_max_subarry_n(nums):
     return mx
 
 
-def find_max_subarry_n_plus(nums):
-    mx = tmp = nums[0]
-    l = r = 0
+"""
+线性时间解决
+"""
+
+
+def find_max_array_n_time(nums):
+    """
+    >>> nums = [1,-2,3,10,-4,7,2,-48]
+    >>> find_max_array_n_time(nums)
+    (2, 6, 18)
+    >>> nums = [3,-1, 5, -1, 9, -20, 21, -20, 20, 21]
+    >>> find_max_array_n_time(nums)
+    (6, 9, 42)
+    """
+    mx = boundry = nums[0]
+    left = right = 0
+
     for i in range(1, len(nums)):
-        if tmp > 0:
-            tmp += nums[i]
+        if boundry > 0:
+            boundry += nums[i]
         else:
-            tmp = nums[i]
-            l = i
-        if tmp > mx:
-            mx = tmp
-            r = i
-    return (l, r), mx
+            boundry = nums[i]
+            left = i
+        if boundry > mx:
+            right = i
+            mx = boundry
 
-
-def test_case():
-    """
-    >>> a = [1, 3, 7, 2, 5, 8]
-    >>> print(find_max_subarry_n(a))
-    26
-    >>> a = [1, 3, 7, 2, 5, 8]
-    >>> print(find_max_subarry_n_plus(a))
-    ((0, 5), 26)
-
-    >>> a = [1, 3, 7, 2, 5, 8]
-    >>> find_max_subarray(a, 0, len(a)-1)
-    ((0, 5), 26)
-    """
-    pass
+    return left, right, mx
 
 
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
-    print(find_max_subarry_n([3, -1, 7, 2, 5, 8]))
-    a = [1, 3, 7, 2, 5, 8]
-    print(cross_mid(a, 0, 5, 3))
+
