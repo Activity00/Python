@@ -42,5 +42,6 @@ def min_common(a, b):
     x = max_common(a, b)
     return c // x
 
+
 if __name__ == '__main__':
     doctest.testmod()
