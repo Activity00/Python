@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-@author: 武明辉 
+@author: 武明辉
 @time: 18-8-31 上午8:39
 """
 
@@ -117,6 +117,39 @@ def find_max_array_n_time(nums):
             right = i
             mx = boundry
 
+    return left, right, mx
+
+
+"""
+动态规划解决
+"""
+
+
+def find_max_array_dp(nums):
+    """
+    >>> nums = [1,-2,3,10,-4,7,2,-48]
+    >>> find_max_array_dp(nums)
+    (2, 6, 18)
+    >>> nums = [3,-1, 5, -1, 9, -20, 21, -20, 20, 21]
+    >>> find_max_array_dp(nums)
+    (6, 9, 42)
+    """
+
+    left = right = 0
+    mx = nums[0]
+    dp = [0 ]* len(nums)
+    dp[0] = nums[0]
+    tmp = 0
+    for i in range(1, len(nums)):
+        if dp[i-1] < 0:
+            dp[i] = dp[i] = nums[i]
+            tmp = i
+        else:
+            dp[i] = nums[i] + dp[i-1]
+        if dp[i] > mx:
+            mx = dp[i]
+            left = tmp
+            right = i
     return left, right, mx
 
 
