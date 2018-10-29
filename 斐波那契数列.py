@@ -21,6 +21,10 @@ def fib_p(n):
         a, b = b, a+b
     return a
 
+"""
+前 n 个 fib数
+"""
+
 
 def fib_pp(n):
     m, a, b = 0, 0, 1
