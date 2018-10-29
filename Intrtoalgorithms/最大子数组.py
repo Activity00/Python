@@ -35,6 +35,26 @@ def find_cross_mid(nums, p, r, m):
     return tl, tr, lmax + rmax
 
 
+def find_max_subarry(nums, p, r):
+    """
+    >>> a = [3, -1, 7, 2, 5, 8]
+    >>> print(find_max_subarry(a, 0, len(a)-1))
+    (0, 5, 24)
+    """
+    if p == r:
+        return p, p, nums[p]
+    m = (p + r) // 2
+    ll, lr, lsum = find_max_subarry(nums, p, m)
+    rl, rr, rsum = find_max_subarry(nums, m+1, r)
+    ml, mr, msum = find_cross_mid(nums, p, r, m)
+    tsum, tl, tr = lsum, ll, lr
+    if rsum > lsum:
+        tsum, tl, tr = rsum, rl, rr
+    if msum > tsum:
+        tsum, tl, tr = msum, ml, mr
+    return tl, tr, tsum
+
+
 # *******************线性时间复杂度**************************
 
 def find_max_subarry_n(nums):
