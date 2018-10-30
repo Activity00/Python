@@ -31,7 +31,13 @@ def reverse_int(num):
         ret += v * (10 ** i)
     return ret
 
+
+def reverse_int(num):
+    a, b = divmod(num, 10)
+
+
 if __name__ == '__main__':
+
     """
     总用时: 0.000024 s
     58924
