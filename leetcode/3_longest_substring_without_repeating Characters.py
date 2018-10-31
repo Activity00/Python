@@ -40,14 +40,14 @@ class Solution:
         >>> s.lengthOfLongestSubstring('pwwkew')
         3
         """
-        dic = {}
         mx = 0
         start = 0
-        for i in range(0, len(s)):
+        dic = {}
+        for i in range(len(s)):
             if s[i] in dic:
                 start = dic[s[i]] + 1
             dic[s[i]] = i
-            mx = max(i - start + 1, mx)
+            mx = max(mx, i-start+1)
         return mx
 
     def lengthOfLongestSubstring_net(self, s):
