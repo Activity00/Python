@@ -38,9 +38,11 @@ P     I
 class Solution:
     def convert(self, s, numRows):
         """
-        :type s: str
-        :type numRows: int
-        :rtype: str
+        >>> s = Solution()
+        >>> s.convert('PAYPALISHIRING', 3)
+        PAHNAPLSIIGYIR
+        >>> s.convert('PAYPALISHIRING', 4)
+        PINALSIGYAHRPI
         """
         pass
 
