@@ -37,14 +37,30 @@ P     I
 
 class Solution:
     def convert(self, s, numRows):
+        # 80 ms
         """
         >>> s = Solution()
         >>> s.convert('PAYPALISHIRING', 3)
-        PAHNAPLSIIGYIR
+        'PAHNAPLSIIGYIR'
         >>> s.convert('PAYPALISHIRING', 4)
-        PINALSIGYAHRPI
+        'PINALSIGYAHRPI'
+        >>> s.convert('AB', 1)
+        'AB'
         """
-        pass
+        if numRows == 1:
+            return s
+        rows = [''] * numRows
+        cur = 0
+        direct = 0
+        for i in range(len(s)):
+            rows[cur] += s[i]
+            if cur == 0:
+                direct = 1
+            elif cur == numRows - 1:
+                direct = -1
+            cur += direct
+
+        return ''.join(rows)
 
 
 if __name__ == '__main__':
