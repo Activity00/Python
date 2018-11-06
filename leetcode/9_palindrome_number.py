@@ -1,0 +1,58 @@
+# coding: utf-8
+
+"""
+@author: 武明辉 
+@time: 18-11-6 下午3:28
+"""
+import doctest
+
+"""
+Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
+
+Example 1:
+
+Input: 121
+Output: true
+
+Example 2:
+Input: -121
+Output: false
+Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+
+Example 3:
+Input: 10
+Output: false
+Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+Follow up:
+
+Coud you solve it without converting the integer to a string?
+"""
+
+
+class Solution:
+    def isPalindrome(self, x):
+        # 276ms
+        """
+        >>> s = Solution()
+        >>> s.isPalindrome(121)
+        True
+        >>> s.isPalindrome(-121)
+        False
+        >>> s.isPalindrome(10)
+        False
+        >>> s.isPalindrome(0)
+        True
+        """
+
+        if x < 0 or x > 10 and x % 10 == 0:
+            return False
+        ret = 0
+        y = x
+        while y:
+            y, b = divmod(y, 10)
+            ret = ret*10 + b
+        return ret == x
+
+
+if __name__ == '__main__':
+    doctest.testmod()
