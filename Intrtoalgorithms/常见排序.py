@@ -181,6 +181,36 @@ def insert(nums, p):
 
 
 """
+二分法优化while循环部分
+"""
+
+
+def insert_sort_p(nums):
+    """
+    >>> nums = random.sample(range(10), 10)
+    >>> target = sorted(nums)
+    >>> operator.eq(insert_sort_p(nums), target)
+    True
+    """
+    count = len(nums)
+    for i in range(1, count):
+        key = nums[i]
+        j = i - 1
+        st = 0
+        while st <= j:
+            mid = (st + j) // 2
+            if nums[mid] > key:
+                j = mid - 1
+            else:
+                st = mid + 1
+        for k in range(i, st, -1):
+            nums[k] = nums[k-1]
+
+        nums[j+1] = key
+    return nums
+
+
+"""
 希尔排序 插入排序增强版
 """
 
