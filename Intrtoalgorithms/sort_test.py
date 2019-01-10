@@ -28,6 +28,32 @@ def insert_sort(nums):
     return nums
 
 
+def insert_sort_p(nums):
+    """
+    二分法优化while循环部分
+    >>> nums = random.sample(range(10), 10)
+    >>> target = sorted(nums)
+    >>> operator.eq(insert_sort_p(nums), target)
+    True
+    """
+    count = len(nums)
+    for i in range(1, count):
+        key = nums[i]
+        j = i - 1
+        st = 0
+        while st <= j:
+            mid = (st + j) // 2
+            if nums[mid] > key:
+                j = mid - 1
+            else:
+                st = mid + 1
+        for k in range(i, st, -1):
+            nums[k] = nums[k-1]
+
+        nums[j+1] = key
+    return nums
+
+
 def insert_sort_d(nums):
     """
     >>> nums = random.sample(range(10), 10)
@@ -65,6 +91,6 @@ def select_sort(nums):
 if __name__ == '__main__':
     nums = random.sample(range(10), 10)
     print(nums)
-    target = sorted(nums, reverse=True)
-    print(select_sort(nums))
+    target = sorted(nums)
+    print(insert_sort_p(nums))
     doctest.testmod()
