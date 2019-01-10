@@ -89,8 +89,4 @@ def select_sort(nums):
 
 
 if __name__ == '__main__':
-    nums = random.sample(range(10), 10)
-    print(nums)
-    target = sorted(nums)
-    print(insert_sort_p(nums))
     doctest.testmod()
