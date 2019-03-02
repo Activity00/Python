@@ -132,6 +132,43 @@ def merge_sort(nums):
     return merge(l, r)
 
 
+def merge2(nums, l, r):
+    
+    while l and r:
+        if l[0] > r[0]:
+            ret.append(r[0])
+        else:
+            ret.append(l[0])
+    if r:
+        ret += r
+    else:
+        ret += l
+    return ret
+
+
+"""
+原址排序
+"""
+
+
+def merge_sort2(nums, p, r):
+    """
+    >>> nums = random.sample(range(10), 10)
+    >>> ret = sorted(nums)
+    >>> merge_sort2(nums, 0, len(nums))
+    >>> operator.eq(ret, nums)
+    True
+    """
+    if p == r:
+        return nums[p]
+
+    q = (p + r) // 2
+    l = merge_sort2(nums, p, q)
+    r = merge_sort2(nums, q, r)
+    merge2(nums, l, r)
+    return nums
+
+
 """
 插入排序  类似扑克牌从没有排序牌中依次选一张排序
 """
@@ -275,6 +312,7 @@ def radix_sort(nums, d=3):  # 默认三位数，如果是四位数，则d=4，�
     >>> radix_sort(a)
     [123, 456, 789]
     """
+    ret = []
     for i in range(d):  # d轮排序
         s = [[] for _ in range(10)]  # 因每一位数字都是0~9，建10个桶
         for j in nums:
