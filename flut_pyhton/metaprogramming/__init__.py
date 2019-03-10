@@ -12,16 +12,12 @@ class A:
     def __init__(self):
         print('inti')
 
-    def __new__(cls, *args, **kwargs):
-        print('new')
-        return super().__new__(cls)
+    def xx(self):
+        pass
 
+    def bb(self):
+        pass
 
 if __name__ == '__main__':
     a = A()
-    print(vars(a))
-    print(a.__dict__)
-    a.a = 2
-    print(vars(a))
-    print(a.__dict__)
-    print(dir(a))
+    print(A.__dict__)
