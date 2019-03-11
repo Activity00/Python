@@ -16,8 +16,12 @@
 进阶:
 如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？
 """
+from collections import Counter
 
 
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        pass
+        return Counter(s) == Counter(t)
+
+    def isAnagram1(self, s: str, t: str) -> bool:
+        return sorted(s) == sorted(t)
