@@ -1,4 +1,4 @@
-from .evalsupport import deco_alpha
+from flut_python.run_time_and_exc_time.evalsupport import deco_alpha
 
 print('<[1]> evaltime module start')
 
