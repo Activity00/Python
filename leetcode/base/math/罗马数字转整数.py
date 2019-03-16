@@ -46,4 +46,26 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 
 class Solution:
     def romanToInt(self, s: str) -> int:
-        pass
+        result = 0
+        if "IV" in s or "IX" in s:
+            result -= 2
+        if "XL" in s or  "XC" in s:
+            result -= 20
+        if "CD" in s or "CM" in s:
+            result -= 200
+        for c in s:
+            if c == 'I':
+                result += 1
+            elif c == 'V':
+                result += 5
+            elif c == 'X':
+                result += 10
+            elif c == 'L':
+                result += 50
+            elif c == 'C':
+                result += 100
+            elif c == 'D':
+                result += 500
+            elif c == 'M':
+                result += 1000
+        return result
