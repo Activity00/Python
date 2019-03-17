@@ -24,3 +24,15 @@ class Solution:
             return -1
         return haystack.index(needle)
 
+    def strStr2(self, haystack: str, needle: str) -> int:
+        if not needle:
+            return 0
+        if needle not in haystack:
+            return -1
+        for i in range(len(haystack)):
+            if haystack[i] == needle[0] and haystack[i:i+len(needle)] == needle:
+                return i
+        else:
+            return -1
+
+
