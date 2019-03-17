@@ -30,4 +30,20 @@
 
 class Solution:
     def countAndSay(self, n: int) -> str:
-        pass
+        a = '1'
+        for _ in range(n-1):
+            t = ''
+            j = 0
+            while j < len(a):
+                k = 1
+                while j + k < len(a) and a[j + k] == a[j]:
+                    k += 1
+                t += str(k) + a[j]
+                j += k
+            a = t
+        return a
+
+
+if __name__ == '__main__':
+    s = Solution()
+    s.countAndSay(5)
