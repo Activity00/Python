@@ -50,6 +50,7 @@
 
 
 def my_toi(str):
+    """错误的"""
     str = str.strip()
     if not str:
         return 0
