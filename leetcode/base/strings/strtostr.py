@@ -35,4 +35,26 @@ class Solution:
         else:
             return -1
 
+    def strStr2(self, haystack: str, needle: str) -> int:
+        if not needle:
+            return 0
+        for i in range(len(haystack)):
+            if len(haystack) -i < len(needle):
+                return -1
+            if haystack[i] == needle[0]:
+                t = j = i
+                k = 0
+                while j < t + len(needle):
+                    if haystack[j] != needle[k]:
+                        break
+                    j += 1
+                    k += 1
+                else:
+                    return t
 
+        return -1
+
+
+if __name__ == '__main__':
+    s = Solution()
+    s.strStr('aaa', 'aaaa')
