@@ -40,6 +40,16 @@ class Solution:
             i += 1
         return strs[0][:i]
 
+    def longestCommonPrefix1(self, strs: List[str]) -> str:
+        ret = ''
+        for s in zip(*strs):
+            tmp = set(s)
+            if len(tmp) == 1:
+                ret += tmp.pop()
+            else:
+                return ret
+        return ret
+
 
 if __name__ == '__main__':
     s = Solution()
