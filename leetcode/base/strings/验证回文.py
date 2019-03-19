@@ -23,7 +23,8 @@
 
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        pass
+        t = [i.lower() for i in s if i.isalpha() or i.isdigit()]
+        return list(t) == list(reversed(t))
 
 
 if __name__ == '__main__':
