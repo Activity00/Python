@@ -33,7 +33,5 @@ class Entity(metaclass=EntityMeta):
             yield name
 
 
-
-
 if __name__ == '__main__':
     pass
