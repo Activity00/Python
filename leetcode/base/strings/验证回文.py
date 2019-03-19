@@ -23,9 +23,27 @@
 
 class Solution:
     def isPalindrome(self, s: str) -> bool:
+        """128ms"""
         t = [i.lower() for i in s if i.isalpha() or i.isdigit()]
         return list(t) == list(reversed(t))
 
+    def isPalindrome1(self, s: str) -> bool:
+        """96 ms"""
+        t = [i.lower() for i in s if i.isalpha() or i.isdigit()]
+        i = 0
+        j = len(t) - 1
+        m = len(t) // 2
+        while i < m <= j:
+            if t[i] != t[j]:
+                break
+            i += 1
+            j -= 1
+        else:
+            return True
+        return False
+
 
 if __name__ == '__main__':
-    pass
+    s = Solution()
+    ret = s.isPalindrome1("A man, a plan, a canal: Panama")
+    print(ret)
