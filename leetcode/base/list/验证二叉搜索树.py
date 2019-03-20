@@ -43,10 +43,13 @@ class TreeNode(object):
 
 class Solution(object):
     def isValidBST(self, root):
-        """
-        :type root: TreeNode
-        :rtype: bool
-        """
+        if root is None or (root.left is None and root.right is None):
+            return True
+        elif (root.left is not None and root.left.val >= root.val) or (
+                root.right is not None and root.right.val <= root.val):
+            return False
+        else:
+            return True if self.isValidBST(root.left) and self.isValidBST(root.right) else False
 
 
 if __name__ == '__main__':
