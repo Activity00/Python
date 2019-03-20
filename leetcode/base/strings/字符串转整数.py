@@ -43,8 +43,23 @@
 解释: 数字 "-91283472332" 超过 32 位有符号整数范围。
      因此返回 INT_MIN (−231) 。
 """
+import re
 
 
 class Solution:
-    def myAtoi(self, str: str) -> int:
-        pass
+    def myAtoi(self, strs: str) -> int:
+        ret = re.findall(r'^([-+]?\d+)', strs.strip())
+        if ret and len(ret) > 0:
+            ret = int(ret[0].replace(' ', ''))
+        else:
+            return 0
+        if ret < -2 ** 31:
+            return -2 ** 31
+        elif ret > 2 ** 31 - 1:
+            return 2 ** 31 -1
+        return ret
+
+
+if __name__ == '__main__':
+    s = Solution()
+    print(s.myAtoi('-    234'))
