@@ -32,9 +32,9 @@ class ListNode:
 
 
 class Solution:
-    def deleteNode(self, node, num):
-        p = node
-        pre = None
-        while p:
-            if p.val == num:
-                pass
+    def deleteNode(self, node):
+        if not node:
+            return node
+        node.val = node.next.val
+        node.next = node.next.next
+        return node
