@@ -71,3 +71,13 @@ class Solution:
             for j in range(i, n - i - 1):
                 matrix[i][j], matrix[j][n - 1 - i], matrix[n - 1 - i][n - 1 - j], matrix[n - 1 - j][i] = \
                     matrix[n - 1 - j][i], matrix[i][j], matrix[j][n - 1 - i], matrix[n - 1 - i][n - 1 - j]
+
+    def rotate2(self, matrix: List[List[int]]) -> None:
+        matrix[:] = map(list, zip(*matrix[::-1]))
+
+
+if __name__ == '__main__':
+    a = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    s = Solution()
+    s.rotate2(a)
+    print(a)
