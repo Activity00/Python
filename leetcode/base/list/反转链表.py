@@ -37,6 +37,15 @@ class Solution:
             p = cur
         return pre
 
+    def reverseList1(self, head, prev=None):
+        """
+        递归方法
+        """
+        if not head:
+            return prev
+        curr, head.next = head.next, prev
+        return self.reverseList(curr, head)
+
 
 if __name__ == '__main__':
     pass
