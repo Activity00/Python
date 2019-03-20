@@ -24,4 +24,13 @@ class ListNode:
 
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        pass
+        if not head or not head.next:
+            return True
+        if head.next.next is None:
+            return head.val == head.next.val
+
+        fast = slow = head
+        while slow.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+        
