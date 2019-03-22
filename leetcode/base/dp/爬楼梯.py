@@ -28,3 +28,15 @@ class Solution:
         if n in {1, 2}:
             return n
         return self.climbStairs(n-1) + self.climbStairs(n-2)
+
+    def climbStairs2(self, n: int) -> int:
+        if n in {1, 2}:
+            return n
+        a = 1
+        b = 2
+        for _ in range(n-2):
+            t = a + b
+            a = b
+            b = t
+        return b
+
