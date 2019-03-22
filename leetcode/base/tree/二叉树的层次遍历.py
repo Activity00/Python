@@ -37,7 +37,23 @@ class TreeNode:
 
 class Solution:
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
-        pass
+        if not root:
+            return []
+        ret = []
+        q = [root]
+
+        while q:
+            t_list = []
+            for _ in range(len(q)):
+                t = q.pop(0)
+                t_list.append(t.val)
+                if t.left:
+                    q.append(t.left)
+                if t.right:
+                    q.append(t.right)
+            if t_list:
+                ret.append(t_list)
+        return ret
 
 
 if __name__ == '__main__':
