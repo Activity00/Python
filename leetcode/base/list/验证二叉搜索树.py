@@ -42,14 +42,15 @@ class TreeNode(object):
 
 
 class Solution(object):
-    def isValidBST(self, root):
-        if root is None or (root.left is None and root.right is None):
+    def validBST(self, root, small, large):
+        if root is None:
             return True
-        elif (root.left is not None and root.left.val >= root.val) or (
-                root.right is not None and root.right.val <= root.val):
+        if small >= root.val or large <= root.val:
             return False
-        else:
-            return True if self.isValidBST(root.left) and self.isValidBST(root.right) else False
+        return self.validBST(root.left, small, root.val) and self.validBST(root.right, root.val, large)
+
+    def isValidBST(self, root):
+        return self.validBST(root, -2 ** 32, 2 ** 32 - 1)
 
 
 if __name__ == '__main__':
