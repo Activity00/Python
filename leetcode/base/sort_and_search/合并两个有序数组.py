@@ -30,7 +30,24 @@ class Solution(object):
         :type n: int
         :rtype: None Do not return anything, modify nums1 in-place instead.
         """
-        pass
+        index1 = m - 1
+        index2 = n - 1
+        while index2 >= 0:
+            if index1 < 0:
+                nums1[0:index2 + 1] = nums2[0:index2 + 1]
+                break
+
+            if nums1[index1] >= nums2[index2]:
+                nums1[index1 + index2 + 1] = nums1[index1]
+                index1 -= 1
+            else:
+                nums1[index1 + index2 + 1] = nums2[index2]
+                index2 -= 1
+
+    def merge1(self, nums1, m, nums2, n):
+        nums1[m:m+n] = nums2[:n]
+        nums1.sort()
+
 
 if __name__ == '__main__':
     pass
