@@ -48,6 +48,25 @@ class Solution:
             return False
         return left.val == right.val and self.symmetric(left.left, right.right) and self.symmetric(left.right, right.left)
 
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        nodeList = [root.left, root.right]
+        while nodeList:
+            symmetricLeft = nodeList.pop(0)
+            symmetricRight = nodeList.pop(0)
+            if not symmetricLeft and not symmetricRight:
+                continue
+            if not symmetricLeft or not symmetricRight:
+                return False
+            if symmetricLeft.val != symmetricRight.val:
+                return False
+            nodeList.append(symmetricLeft.left)
+            nodeList.append(symmetricRight.right)
+            nodeList.append(symmetricLeft.right)
+            nodeList.append(symmetricRight.left)
+        return True
+
 
 if __name__ == '__main__':
     pass
