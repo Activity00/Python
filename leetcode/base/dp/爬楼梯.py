@@ -40,3 +40,11 @@ class Solution:
             b = t
         return b
 
+    def climbStairs2(self, n: int) -> int:
+        a = 0
+        b = 1
+        for i in range(n):
+            a = a + b
+            a, b = b, a
+        return b
+
