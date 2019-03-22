@@ -37,7 +37,16 @@ class TreeNode:
 
 class Solution:
     def isSymmetric(self, root: TreeNode) -> bool:
-        pass
+        if not root:
+            return True
+        return self.symmetric(root.left, root.right)
+
+    def symmetric(self, left, right):
+        if not left and not right:
+            return True
+        if left and not right or right and not left:
+            return False
+        return left.val == right.val and self.symmetric(left.left, right.right) and self.symmetric(left.right, right.left)
 
 
 if __name__ == '__main__':
