@@ -31,12 +31,27 @@ class Solution:
         if nums[mid] == target:
             return mid
         if nums[mid] < target:
-            start = mid
+            start = mid + 1
         else:
-            end = mid
+            end = mid - 1
         return self.bsearch(start, end, nums, target)
 
     def search(self, nums: List[int], target: int) -> int:
         if not nums:
             return -1
         return self.bsearch(0, len(nums)-1, nums, target)
+
+    def search(self, nums: List[int], target: int) -> int:
+        if not nums:
+            return -1
+        left = 0
+        right = len(nums) - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                return mid
+            if nums[mid] > target:
+                right = mid - 1
+            else:
+                left = mid + 1
+        return -1
