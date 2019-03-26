@@ -16,11 +16,11 @@ from typing import List
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         mx = nums[0]
-        tmp = min(nums)
-        for n in nums:
-            if n + tmp > 0:
-                tmp += n
+        tmp = nums[0]
+        for i in range(1, len(nums)):
+            if tmp > 0:
+                tmp += nums[i]
             else:
-                tmp = min(nums)
-            mx = max(mx, tmp)
+                tmp = nums[i]
+            mx = max(tmp, mx)
         return mx
