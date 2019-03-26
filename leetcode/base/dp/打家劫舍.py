@@ -30,6 +30,13 @@ class Solution:
             result[i] = max(result[i-2]+nums[i], nums[i-1])
         return result[len(nums)-1]
 
+    def rob1(self, nums: List[int]) -> int:
+        last = 0
+        now = 0
+        for i in nums:
+            last, now = now, max(last+i, now)
+        return now
+
 
 if __name__ == '__main__':
     s = Solution()
