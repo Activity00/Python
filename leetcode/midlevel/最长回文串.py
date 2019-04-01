@@ -47,3 +47,7 @@ class Solution:
 # 答案参考 https://blog.csdn.net/asd136912/article/details/78987624
 
 
+if __name__ == '__main__':
+    s = Solution()
+    s.longestPalindrome2('babad')
+    s.longestPalindrome('cbbd')
