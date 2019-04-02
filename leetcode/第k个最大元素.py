@@ -4,6 +4,7 @@
 @author: 武明辉 
 @time: 2018/6/30 10:04
 """
+import random
 
 """
 在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
@@ -24,12 +25,37 @@
 
 def kmax(nums, k):
     nums.sort(reverse=True)
-    return nums[k-1]
+    return nums[k - 1]
 
 
 import heapq
+
+
 def kmax2(nums, k):
     return heapq.nlargest(k, nums)[-1]
 
+
+def partication(nums, p, r):
+    i = p
+    for j in range(p, r):
+        if nums[j] > nums[r]:
+            nums[j], nums[i] = nums[i], nums[j]
+            i += 1
+    nums[i], nums[r] = nums[r], nums[i]
+    return i
+
+
+def max_k(nums, p, r, k):
+    q = partication(nums, p, r)
+    if k - 1 == q:
+        return nums[:q+1]
+    if q > k - 1:
+        return max_k(nums, p, q - 1, k)
+    else:
+        return max_k(nums, q + 1, r, k)
+
+
 if __name__ == '__main__':
-    pass
+    nums = random.sample(range(10), 10)
+    print(nums)
+    print(max_k(nums, 0, len(nums) - 1, 3))
