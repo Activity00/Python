@@ -56,5 +56,36 @@ def merge_sort(nums):
     return merge(l, r)
 
 
+def insert_sort(nums):
+    """
+    >>> nums = random.sample(range(10), 10)
+    >>> target = sorted(nums)
+    >>> operator.eq(insert_sort(nums), target)
+    True
+    """
+    for i in range(1, len(nums)):
+        k = nums[i]
+        j = i - 1
+        while j >= 0:
+            if k < nums[j]:
+                nums[j], nums[j+1] = nums[j+1], nums[j]
+            j -= 1
+    return nums
+
+
+def bobble_sort(nums):
+    """
+    >>> nums = random.sample(range(10), 10)
+    >>> target = sorted(nums)
+    >>> operator.eq(bobble_sort(nums), target)
+    True
+    """
+    for i in range(len(nums)):
+        for j in range(1, len(nums) - i):
+            if nums[j-1] > nums[j]:
+                nums[j-1], nums[j] = nums[j], nums[j-1]
+    return nums
+
+
 if __name__ == '__main__':
     doctest.testmod()
