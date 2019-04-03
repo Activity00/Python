@@ -37,5 +37,6 @@ def plt(cost):
 
     return ret[count-1]
 
+
 if __name__ == '__main__':
     print(plt([10, 15, 20]))
