@@ -46,7 +46,7 @@ class BSTree(object):
         return f'BSTree->root({self.root.val})'
 
     @staticmethod
-    def build_bitree_from_list(lists: List[object]) -> object:
+    def build_bstree(lists: List[object]) -> 'BSTree':
         if not lists:
             return None
         root_node = BitNode(lists[0])
@@ -54,19 +54,40 @@ class BSTree(object):
         i = 1
         while i < len(lists):
             node = queue.popleft()
-            node.left = BitNode(lists[i]) if lists[i] else None
-            queue.append(node.left)
+            node.left = node.right = None
+            if lists[i]:
+                node.left = BitNode(lists[i])
+                queue.append(node.left)
             i += 1
-            node.right = BitNode(lists[i]) if lists[i] else None
-            queue.append(node.right)
+            if lists[i: i + 1]:
+                node.right = BitNode(lists[i])
+                queue.append(node.right)
             i += 1
+
         return BSTree(root_node)
 
-    def in_order_walk(self, root):
-        if root:
-            self.in_order_walk(root.left)
-            print(root.data)
-            self.in_order_walk(root.right)
+    def _in_order_traverse(self, node, func):
+        if node:
+            self._in_order_traverse(node.left, func)
+            func(node)
+            self._in_order_traverse(node.right, func)
+
+    def in_order_traverse(self, func):
+        if not self.root:
+            return
+        node = self.root
+        stack = deque()
+        while node or stack:
+            while node:
+                stack.append(node)
+                node = node.left
+            if stack:
+                n = stack.pop()
+                func(n)
+                stack.append(n.right)
+
+    def _in_order_traverse_recursion(self, func):
+        self._in_order_traverse(self.root, func)
 
     def min_num(self, root):
         r = root
@@ -207,44 +228,32 @@ if __name__ == '__main__':
                 /
                9
     """
-    n15, n6, n18, n3, n7, n17, n20, n2, n4, n13, n9 = BitNode(data=15), BitNode(data=6), BitNode(data=18), \
-                                                      BitNode(data=3), BitNode(data=7), BitNode(data=17), \
-                                                      BitNode(data=20), BitNode(data=2), BitNode(data=4), \
-                                                      BitNode(data=13), BitNode(data=9)
-    n15.left, n15.right = n6, n18
-    n6.left, n6.right, n6.parent = n3, n7, n15
-    n18.left, n18.right, n18.parent = n17, n20, n15
-    n3.left, n3.right, n3.parent = n2, n4, n6
-    n7.left, n7.right, n7.parent = None, n13, n6
-    n17.left, n17.right, n17.parent = None, None, n18
-    n20.left, n20.right, n20.parent = None, None, n18
-    n2.left, n2.right, n2.parent = None, None, n3
-    n4.left, n4.right, n4.parent = None, None, n3
-    n13.left, n13.right, n13.parent = n9, None, n7
-    root = n15
-    tree = BiTree(n15)
+    tree = BSTree.build_bstree(
+        [15, 6, 18, 3, 7, 17, 20, 2, 4, None, 13, None, None, None, None, None, None, None, None, 9, None]
+    )
     # 中序遍历
-    tree.in_order_walk(root)
-    # 搜索二叉树
-    print('递归搜索二叉树')
-    ret = tree.tree_search(root, 20)
-    print(ret, ret.data if ret else None)
-    ret = tree.tree_search(root, 200)
-    print(ret, ret.data if ret else None)
-    print('非递归调用')
-    ret = tree.tree_search_without_recursion(root, 20)
-    print(ret, ret.data if ret else None)
-    ret = tree.tree_search_without_recursion(root, 200)
-    print(ret, ret.data if ret else None)
-    print('最大值', tree.max_num(root))
-    print('最小值', tree.min_num(root))
-    print('15后继节点', tree.tree_successor(root))
-    print('13后继节点', tree.tree_successor(n13))
-    print('高度', tree.height(root), '宽度', tree.width(root))
-    tree.print_tree(root)
-    print('\n')
-    tree.insert(root, BitNode(data=8))
-    tree.print_tree(root)
-
-    tree = BSTree.build_bitree_from_list(['A', 'B', 'C', 'D', 'E', 'F', None])
     tree.print_tree(tree.root)
+    # tree.in_order_traverse(lambda x: print(x.val))
+    # 搜索二叉树
+    # print('递归搜索二叉树')
+    # ret = tree.tree_search(root, 20)
+    # print(ret, ret.data if ret else None)
+    # ret = tree.tree_search(root, 200)
+    # print(ret, ret.data if ret else None)
+    # print('非递归调用')
+    # ret = tree.tree_search_without_recursion(root, 20)
+    # print(ret, ret.data if ret else None)
+    # ret = tree.tree_search_without_recursion(root, 200)
+    # print(ret, ret.data if ret else None)
+    # print('最大值', tree.max_num(root))
+    # print('最小值', tree.min_num(root))
+    # print('15后继节点', tree.tree_successor(root))
+    # print('13后继节点', tree.tree_successor(n13))
+    # print('高度', tree.height(root), '宽度', tree.width(root))
+    # tree.print_tree(root)
+    # print('\n')
+    # tree.insert(root, BitNode(data=8))
+    # tree.print_tree(root)
+    #
+    # tree = BSTree.build_bitree_from_list(['A', 'B', 'C', 'D', 'E', 'F', None])
+    # tree.print_tree(tree.root)
