@@ -4,6 +4,10 @@
 @author: 武明辉 
 @time: 18-9-28 上午9:35
 """
+from typing import List
+from collections import deque
+
+
 """
 *                      1
 
@@ -31,12 +35,32 @@ class BitNode(object):
         self.parent = parent
 
     def __str__(self):
-        return 'BiteNode({})'.format(self.data)
+        return f'BiteNode({self.data})'
 
 
-class BiTree(object):
+class BSTree(object):
     def __init__(self, root):
         self.root = root
+
+    def __str__(self):
+        return f'BSTree->root({self.root.val})'
+
+    @staticmethod
+    def build_bitree_from_list(lists: List[object]) -> object:
+        if not lists:
+            return None
+        root_node = BitNode(lists[0])
+        queue = deque([root_node])
+        i = 1
+        while i < len(lists):
+            node = queue.popleft()
+            node.left = BitNode(lists[i]) if lists[i] else None
+            queue.append(node.left)
+            i += 1
+            node.right = BitNode(lists[i]) if lists[i] else None
+            queue.append(node.right)
+            i += 1
+        return BSTree(root_node)
 
     def in_order_walk(self, root):
         if root:
@@ -222,3 +246,5 @@ if __name__ == '__main__':
     tree.insert(root, BitNode(data=8))
     tree.print_tree(root)
 
+    tree = BSTree.build_bitree_from_list(['A', 'B', 'C', 'D', 'E', 'F', None])
+    tree.print_tree(tree.root)

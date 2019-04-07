@@ -5,6 +5,8 @@ Created on 2017年3月3日
 二叉树的使用
 @author: 武明辉
 """
+from typing import List
+from collections import deque
 
 
 class BitNode(object):
@@ -15,8 +17,25 @@ class BitNode(object):
 
     
 class BiTree(object):
-    def __init__(self, root):
+    def __init__(self, root=None):
         self.root = root
+
+    @staticmethod
+    def build_bitree_from_list(lists: List[object]) -> object:
+        if not lists:
+            return None
+        root_node = BitNode(lists[0])
+        queue = deque([root])
+        i = 1
+        while i < len(lists):
+            node = queue.popleft()
+            node.left = BitNode(lists[i]) if lists[i] else None
+            queue.append(node.left)
+            i += 1
+            node.right = BitNode(lists[i]) if lists[i] else None
+            queue.append(node.right)
+            i += 1
+        return BiTree(root_node)
 
     def create_tree(self, root):
         data = input('请输入：')
