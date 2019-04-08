@@ -63,23 +63,24 @@ class BSTree(object):
 
     @property
     def width(self):
-        curwidth = 1
-        maxwidth = 0
+        # TODO
+        cur_width = 1
+        max_width = 0
         q = [self.root]
         while q:
-            n = curwidth
+            n = cur_width
             for i in range(n):
                 tmp = q.pop(0)
-                curwidth -= 1
+                cur_width -= 1
                 if tmp.left:
                     q.append(tmp.left)
-                    curwidth += 1
+                    cur_width += 1
                 if tmp.right:
                     q.append(tmp.right)
-                    curwidth += 1
-            if curwidth > maxwidth:
-                maxwidth = curwidth
-        return maxwidth
+                    cur_width += 1
+            if cur_width > max_width:
+                max_width = cur_width
+        return max_width
 
     @staticmethod
     def build_bstree(lists: List[object]) -> 'BSTree':
@@ -258,9 +259,11 @@ if __name__ == '__main__':
     # 中序遍历
     print('中序遍历二叉搜索树:')
     tree.in_order_traverse(lambda x: print(x.data) if x.data else None)
-    # 最大最小值
+    # 最大最小值,高度与宽度
     print('最大值', tree.max_num)
     print('最小值', tree.min_num)
+    print('宽度', tree.width)
+    print('高度', tree.height)
     # 搜索二叉树
     print('搜索二叉树：')
     ret = tree.tree_search(20)
