@@ -7,7 +7,6 @@
 from typing import List
 from collections import deque
 
-
 """
 *                      1
 
@@ -75,7 +74,7 @@ class BSTree(object):
         if not self.root:
             return
         node = self.root
-        stack = deque()
+        stack = deque([])
         while node or stack:
             while node:
                 stack.append(node)
@@ -84,7 +83,8 @@ class BSTree(object):
                 n = stack.pop()
                 if n:
                     func(n)
-                    stack.append(n.right)
+                if n.right:
+                    node = n.right
 
     def _in_order_traverse_recursion(self, func):
         self._in_order_traverse(self.root, func)
@@ -96,7 +96,7 @@ class BSTree(object):
 
     def print_tree(self):
         max_height = self.height
-        space_nums = [2**i-1 for i in range(max_height)[::-1]]
+        space_nums = [2 ** i - 1 for i in range(max_height)[::-1]]
         row = 0
         stack = deque([self.root])
         while stack:
