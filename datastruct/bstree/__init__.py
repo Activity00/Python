@@ -26,6 +26,11 @@ from collections import deque
 """
 
 
+def print_space(num):
+    for i in range(num):
+        print(' ', end='')
+
+
 class BitNode(object):
     def __init__(self, data=None, left=None, right=None, parent=None):
         self.data = data
@@ -44,107 +49,13 @@ class BSTree(object):
     def __str__(self):
         return f'BSTree->root({self.root.val})'
 
-    @staticmethod
-    def build_bstree(lists: List[object]) -> 'BSTree':
-        if not lists:
-            return None
-        root_node = BitNode(lists[0])
-        queue = deque([root_node])
-        i = 1
-        while i < len(lists):
-            node = queue.popleft()
-            node.left = node.right = None
-            if lists[i]:
-                node.left = BitNode(lists[i])
-                queue.append(node.left)
-            if lists[i + 1: i + 2]:
-                node.right = BitNode(lists[i + 1])
-                queue.append(node.right)
-            i += 2
-
-        return BSTree(root_node)
-
-    def _in_order_traverse(self, node, func):
-        if node:
-            self._in_order_traverse(node.left, func)
-            func(node)
-            self._in_order_traverse(node.right, func)
-
-    def in_order_traverse(self, func):
-        if not self.root:
-            return
-        node = self.root
-        stack = deque([])
-        while node or stack:
-            while node:
-                stack.append(node)
-                node = node.left
-            if stack:
-                n = stack.pop()
-                if n:
-                    func(n)
-                if n.right:
-                    node = n.right
-
-    def _in_order_traverse_recursion(self, func):
-        self._in_order_traverse(self.root, func)
-
-    @staticmethod
-    def _print_space(num):
-        for i in range(num):
-            print(' ', end='')
-
-    def print_tree(self):
-        max_height = self.height
-        space_nums = [2 ** i - 1 for i in range(max_height)[::-1]]
-        row = 0
-        stack = deque([self.root])
-        while stack:
-            flag = 0
-            j = row
-            tmp = []
-            while stack:
-                if flag >= 1:
-                    self._print_space(space_nums[j])
-                else:
-                    self._print_space(space_nums[j])
-                    j -= 1
-                flag += 1
-                s = stack.popleft()
-                if s:
-                    if s.data:
-                        print(s.data, end='')
-                    tmp.append(s.left)
-                    tmp.append(s.right)
-                else:
-                    tmp.append(None)
-                    tmp.append(None)
-                    print(' ', end='')
-            stack.extend(tmp)
-            row += 1
-            if not any(stack):
-                break
-            print('\n')
-        print('\n')
-
+    @property
     def min_num(self):
-        r = self.root
-        while r.left:
-            r = r.left
-        return r.data
+        return self._min_num(self.root)
 
+    @property
     def max_num(self):
-        r = self.root
-        while r.right:
-            r = r.right
-        return r.data
-
-    def _height(self, root):
-        if not root:
-            return 0
-        ld = self._height(root.left)
-        rd = self._height(root.right)
-        return ld + 1 if ld > rd else rd + 1
+        return self._max_num(self.root)
 
     @property
     def height(self):
@@ -170,20 +81,121 @@ class BSTree(object):
                 maxwidth = curwidth
         return maxwidth
 
-    def tree_search(self, root, key):
-        if not root or root.data == key:
-            return root
+    @staticmethod
+    def build_bstree(lists: List[object]) -> 'BSTree':
+        if not lists:
+            return None
+        root_node = BitNode(lists[0])
+        queue = deque([root_node])
+        i = 1
+        while i < len(lists):
+            node = queue.popleft()
+            node.left = node.right = None
+            if lists[i]:
+                node.left = BitNode(lists[i])
+                queue.append(node.left)
+            if lists[i + 1: i + 2] and lists[i + 1]:
+                node.right = BitNode(lists[i + 1])
+                queue.append(node.right)
+            i += 2
 
-        if root.data > key:
-            return self.tree_search(root.left, key)
+        return BSTree(root_node)
+
+    def in_order_traverse(self, func):
+        if not self.root:
+            return
+        node = self.root
+        stack = deque([])
+        while node or stack:
+            while node:
+                stack.append(node)
+                node = node.left
+            if stack:
+                n = stack.pop()
+                if n:
+                    func(n)
+                if n.right:
+                    node = n.right
+
+    def print_tree(self):
+        max_height = self.height
+        space_nums = [2 ** i - 1 for i in range(max_height)[::-1]]
+        row = 0
+        stack = deque([self.root])
+        while stack:
+            flag = 0
+            j = row
+            tmp = []
+            while stack:
+                if flag >= 1:
+                    print_space(space_nums[j])
+                else:
+                    print_space(space_nums[j])
+                    j -= 1
+                flag += 1
+                s = stack.popleft()
+                if s:
+                    if s.data:
+                        print(s.data, end='')
+                    tmp.append(s.left)
+                    tmp.append(s.right)
+                else:
+                    tmp.append(None)
+                    tmp.append(None)
+                    print(' ', end='')
+            stack.extend(tmp)
+            row += 1
+            if not any(stack):
+                break
+            print('\n')
+        print('\n')
+
+    def tree_search(self, key, start_node=None):
+        node = start_node if start_node else self.root
+        while node and node.data != key:
+            node = node.left if node.data > key else node.right
+        return node
+
+    def tree_search_recursion(self, key):
+        return self._tree_search_recursion(self.root, key)
+
+    def _tree_search_recursion(self, node, key):
+        if not node or node.data == key:
+            return node
+        if node.data > key:
+            return self._tree_search_recursion(node.left, key)
         else:
-            return self.tree_search(root.right, key)
+            return self._tree_search_recursion(node.right, key)
 
-    def tree_search_without_recursion(self, key):
-        r = self.root
-        while r and r.data != key:
-            r = r.left if r.data > key else r.right
-        return r
+    @staticmethod
+    def _min_num(node):
+        n = node
+        while n.left:
+            n = n.left
+        return n.data
+
+    @staticmethod
+    def _max_num(node):
+        n = node
+        while n.right:
+            n = n.right
+        return n.data
+
+    def _in_order_traverse_recursion(self, func):
+        self._in_order_traverse(self.root, func)
+
+    def _in_order_traverse(self, node, func):
+        if node:
+            self._in_order_traverse(node.left, func)
+            func(node)
+            self._in_order_traverse(node.right, func)
+
+    def _height(self, root):
+        if not root:
+            return 0
+        ld = self._height(root.left)
+        rd = self._height(root.right)
+        return ld + 1 if ld > rd else rd + 1
 
     def tree_successor(self, node):
         """
@@ -240,22 +252,22 @@ if __name__ == '__main__':
     tree = BSTree.build_bstree(
         [15, 6, 18, 3, 7, 17, 20, 2, 4, None, 13, None, None, None, None, None, None, None, None, 9, None]
     )
-    # 中序遍历
+    # 打印二叉搜索树
+    print('打印二叉搜索树：')
     tree.print_tree()
+    # 中序遍历
+    print('中序遍历二叉搜索树:')
     tree.in_order_traverse(lambda x: print(x.data) if x.data else None)
+    # 最大最小值
+    print('最大值', tree.max_num)
+    print('最小值', tree.min_num)
     # 搜索二叉树
-    # print('递归搜索二叉树')
-    # ret = tree.tree_search(root, 20)
-    # print(ret, ret.data if ret else None)
-    # ret = tree.tree_search(root, 200)
-    # print(ret, ret.data if ret else None)
-    # print('非递归调用')
-    # ret = tree.tree_search_without_recursion(20)
-    # print(ret, ret.data if ret else None)
-    # ret = tree.tree_search_without_recursion(200)
-    # print(ret, ret.data if ret else None)
-    # print('最大值', tree.max_num(root))
-    # print('最小值', tree.min_num(root))
+    print('搜索二叉树：')
+    ret = tree.tree_search(20)
+    print(20, ret)
+    ret = tree.tree_search(200)
+    print(200, ret)
+
     # print('15后继节点', tree.tree_successor(root))
     # print('13后继节点', tree.tree_successor(n13))
     # print('高度', tree.height(root), '宽度', tree.width(root))
