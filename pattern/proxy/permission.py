@@ -3,7 +3,7 @@ class SensitiveInfo:
         self.users = ['nick', 'tom']
 
     def read(self):
-        print(f'user info: {self.user}')
+        print(f'user info: {self.users}')
 
     def add(self, user):
         self.users.append(user)
