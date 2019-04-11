@@ -7,6 +7,8 @@
 from typing import List
 from collections import deque
 
+from datastruct.pytree.utils import print_space, print_tree
+
 """
 *                      1
 
@@ -24,11 +26,6 @@ from collections import deque
 * * * * * * * *      15       
 
 """
-
-
-def print_space(num):
-    for i in range(num):
-        print(' ', end='')
 
 
 class BitNode(object):
@@ -117,39 +114,6 @@ class BSTree(object):
                     func(n)
                 if n.right:
                     node = n.right
-
-    def print_tree(self):
-        max_height = self.height
-        space_nums = [2 ** i - 1 for i in range(max_height)[::-1]]
-        row = 0
-        stack = deque([self.root])
-        while stack:
-            flag = 0
-            j = row
-            tmp = []
-            while stack:
-                if flag >= 1:
-                    print_space(space_nums[j])
-                else:
-                    print_space(space_nums[j])
-                    j -= 1
-                flag += 1
-                s = stack.popleft()
-                if s:
-                    if s.data:
-                        print(s.data, end='')
-                    tmp.append(s.left)
-                    tmp.append(s.right)
-                else:
-                    tmp.append(None)
-                    tmp.append(None)
-                    print(' ', end='')
-            stack.extend(tmp)
-            row += 1
-            if not any(stack):
-                break
-            print('\n')
-        print('\n')
 
     def tree_search(self, key, start_node=None):
         node = start_node if start_node else self.root
@@ -255,7 +219,7 @@ if __name__ == '__main__':
     )
     # 打印二叉搜索树
     print('打印二叉搜索树：')
-    tree.print_tree()
+    print_tree(tree)
     # 中序遍历
     print('中序遍历二叉搜索树:')
     tree.in_order_traverse(lambda x: print(x.data) if x.data else None)
