@@ -38,3 +38,27 @@ def print_tree(tree):
             break
         print('\n')
     print('\n')
+
+
+def in_order_traverse(tree, func):
+    if not tree:
+        return
+    node = tree
+    stack = deque([])
+    while node or stack:
+        while node:
+            stack.append(node)
+            node = node.left
+        if stack:
+            n = stack.pop()
+            if n:
+                func(n)
+            if n.right:
+                node = n.right
+
+
+def _in_order_traverse(node, func):
+    if node:
+        _in_order_traverse(node.left, func)
+        func(node)
+        _in_order_traverse(node.right, func)
