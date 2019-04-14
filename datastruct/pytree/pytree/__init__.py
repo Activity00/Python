@@ -7,10 +7,10 @@
 from typing import List
 from collections import deque
 
-from datastruct.pytree.pytree.utils import print_space, print_tree, in_order_traverse
+from datastruct.pytree.pytree.utils import print_space, print_tree, in_order_traverse, post_order_traverse
 
 
-class BitNode(object):
+class BitNode:
     def __init__(self, data=None, left=None, right=None, parent=None):
         self.data = data
         self.left = left
@@ -20,43 +20,12 @@ class BitNode(object):
     def __str__(self):
         return f'BiteNode({self.data})'
 
-
-class BiTree(BitNode):
-    def __str__(self):
-        return f'BSTree->root({self.data})'
-
     @property
     def height(self):
-        return self._height_with_node(self)
+        pass
 
     @property
     def width(self):
-        return self._width(self)
-
-    @staticmethod
-    def build_bstree(lists: List[object]) -> (None, 'BitNode'):
-        if not lists:
-            return None
-        tree_node = BitNode(lists[0])
-        queue = deque([tree_node])
-        i = 1
-        while i < len(lists):
-            node = queue.popleft()
-            node.left = node.right = None
-            if lists[i]:
-                node.left = BitNode(lists[i])
-                queue.append(node.left)
-            if lists[i + 1: i + 2] and lists[i + 1]:
-                node.right = BitNode(lists[i + 1])
-                queue.append(node.right)
-            i += 2
-        return tree_node
-
-    def height_with_node(self, node):
-        return 5
-
-    def _width(self):
-        # TODO
         cur_width = 1
         max_width = 0
         q = [self.root]
@@ -74,33 +43,6 @@ class BiTree(BitNode):
             if cur_width > max_width:
                 max_width = cur_width
         return max_width
-
-
-class BSTree(BitNode):
-    def __str__(self):
-        return f'BSTree->root({self.data})'
-
-    @property
-    def min_num(self):
-        return self._min_num(self)
-
-    @property
-    def max_num(self):
-        return self._max_num(self)
-
-    @staticmethod
-    def _min_num(node):
-        n = node
-        while n.left:
-            n = n.left
-        return n.data
-
-    @staticmethod
-    def _max_num(node):
-        n = node
-        while n.right:
-            n = n.right
-        return n.data
 
     def tree_search(self, key, start_node=None):
         node = start_node if start_node else self.root
@@ -157,6 +99,49 @@ class BSTree(BitNode):
                 pass
 
 
+class BiTree(BitNode):
+    def __str__(self):
+        return f'BSTree->root({self.data})'
+
+    @staticmethod
+    def build_bstree(lists: List[object]) -> (None, 'BitNode'):
+        if not lists:
+            return None
+        tree_node = BitNode(lists[0])
+        queue = deque([tree_node])
+        i = 1
+        while i < len(lists):
+            node = queue.popleft()
+            node.left = node.right = None
+            if lists[i]:
+                node.left = BitNode(lists[i])
+                queue.append(node.left)
+            if lists[i + 1: i + 2] and lists[i + 1]:
+                node.right = BitNode(lists[i + 1])
+                queue.append(node.right)
+            i += 2
+        return tree_node
+
+
+class BSTree(BiTree):
+    def __str__(self):
+        return f'BSTree->root({self.data})'
+
+    @property
+    def min_num(self):
+        n = self
+        while n.left:
+            n = n.left
+        return n.data
+
+    @property
+    def max_num(self):
+        n = self
+        while n.right:
+            n = n.right
+        return n.data
+
+
 if __name__ == '__main__':
     """
                    15
@@ -174,20 +159,21 @@ if __name__ == '__main__':
     # 打印二叉搜索树
     # print('打印二叉搜索树：')
     # print_tree(tree)
-    # 中序遍历
-    print('中序遍历二叉搜索树:')
-    # in_order_traverse(tree, lambda x: print(x.data) if x.data else None)
-    # 最大最小值,高度与宽度
-    print('最大值', tree.max_num)
-    print('最小值', tree.min_num)
-    print('宽度', tree.width)
-    print('高度', tree.height)
-    # 搜索二叉树
-    print('搜索二叉树：')
-    ret = tree.tree_search(20)
-    print(20, ret)
-    ret = tree.tree_search(200)
-    print(200, ret)
+    # # 中序遍历
+    # print('中序遍历二叉搜索树:')
+    in_order_traverse(tree, lambda x: print(x.data) if x.data else None)
+    post_order_traverse(tree, lambda x: print(x.data) if x else None, is_ret=True)
+    # # 最大最小值,高度与宽度
+    # print('最大值', tree.max_num)
+    # print('最小值', tree.min_num)
+    # print('宽度', tree.width)
+    # print('高度', tree.height)
+    # # 搜索二叉树
+    # print('搜索二叉树：')
+    # ret = tree.tree_search(20)
+    # print(20, ret)
+    # ret = tree.tree_search(200)
+    # print(200, ret)
 
     # print('15后继节点', tree.tree_successor(root))
     # print('13后继节点', tree.tree_successor(n13))

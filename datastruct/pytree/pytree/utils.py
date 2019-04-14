@@ -40,21 +40,25 @@ def print_tree(tree):
     print('\n')
 
 
-def in_order_traverse(tree, func):
-    if not tree:
+def in_order_traverse(node, func, is_ret=False):
+    if not node:
         return
-    node = tree
+    ret = [] if is_ret else None
+    tmp_node = node
     stack = deque([])
-    while node or stack:
-        while node:
-            stack.append(node)
-            node = node.left
+    while tmp_node or stack:
+        while tmp_node:
+            stack.append(tmp_node)
+            tmp_node = tmp_node.left
         if stack:
             n = stack.pop()
             if n:
-                func(n)
+                r = func(n)
+                if is_ret:
+                    ret.append(r)
             if n.right:
-                node = n.right
+                tmp_node = n.right
+    return ret
 
 
 def _in_order_traverse(node, func):
@@ -62,3 +66,57 @@ def _in_order_traverse(node, func):
         _in_order_traverse(node.left, func)
         func(node)
         _in_order_traverse(node.right, func)
+
+
+def pre_order_traverse(node, func, is_ret=False):
+    if not node:
+        return
+    ret = [] if is_ret else None
+    stack = deque([node])
+    while stack:
+        n = stack.pop()
+        r = func(n)
+        if is_ret:
+            ret.append(r)
+        if n.right:
+            stack.append(n.right)
+        if n.left:
+            stack.append(n.left)
+    return ret
+
+
+def _pre_order_traverse(node, func):
+    if node:
+        func(node)
+        _pre_order_traverse(node.left, func)
+        _pre_order_traverse(node.right, func)
+
+
+def post_order_traverse(node, func, is_ret=False):
+    if not node:
+        return
+    ret = [] if is_ret else None
+    tmp_node = node
+    stack = deque([])
+    while tmp_node or stack:
+        while tmp_node:
+            stack.append(tmp_node)
+            tmp_node = tmp_node.left
+
+        n = stack.pop()
+        if n.right:
+            stack.append(n)
+            tmp_node = n.right
+        else:
+            r = func(n)
+            if is_ret:
+                ret.append(r)
+    return ret
+
+
+def _post_order_traverse(node, func):
+    if node:
+        _pre_order_traverse(node.left, func)
+        _pre_order_traverse(node.right, func)
+        func(node)
+
