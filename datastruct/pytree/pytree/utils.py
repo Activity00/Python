@@ -45,7 +45,7 @@ def in_order_traverse(node, func, is_ret=False):
         return
     ret = [] if is_ret else None
     tmp_node = node
-    stack = deque([])
+    stack = []
     while tmp_node or stack:
         while tmp_node:
             stack.append(tmp_node)
@@ -72,7 +72,7 @@ def pre_order_traverse(node, func, is_ret=False):
     if not node:
         return
     ret = [] if is_ret else None
-    stack = deque([node])
+    stack = [node]
     while stack:
         n = stack.pop()
         r = func(n)
@@ -96,21 +96,20 @@ def post_order_traverse(node, func, is_ret=False):
     if not node:
         return
     ret = [] if is_ret else None
-    tmp_node = node
-    stack = deque([])
-    while tmp_node or stack:
-        while tmp_node:
-            stack.append(tmp_node)
-            tmp_node = tmp_node.left
-
-        n = stack.pop()
+    stack1 = [node]
+    stack2 = []
+    while stack1:
+        n = stack1.pop()
+        if n.left:
+            stack1.append(n.left)
         if n.right:
-            stack.append(n)
-            tmp_node = n.right
-        else:
-            r = func(n)
-            if is_ret:
-                ret.append(r)
+            stack1.append(n.right)
+        stack2.append(n)
+    while stack2:
+        n = stack2.pop()
+        r = func(n)
+        if is_ret:
+            ret.append(r)
     return ret
 
 
