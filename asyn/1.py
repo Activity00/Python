@@ -1,13 +1,43 @@
 import asyncio
+import itertools
+import sys
 
 
-async def main():
-    print('hello')
-    await asyncio.sleep(1)
-    print('world')
-    loop.stop()
+async def spin(msg):
+    write, flush = sys.stdout.write, sys.stdout.flush
+    for char in itertools.cycle('|/-\\'):
+        status = f'{char} {msg}'
+        print(status)
+        write(status)
+        flush()
+        write('\x08' * len(status))
+        try:
+            await asyncio.sleep(.1)
+        except asyncio.CancelledError:
+            break
+    write(' ' * len(status) + '\x08' * len(status))
 
 
-loop = asyncio.get_event_loop()
-loop.create_task(main())
-loop.run_forever()
+async def slow_function():
+    await asyncio.sleep(3)
+    return 42
+
+
+async def supervisor():
+    spinner = asyncio.create_task(spin('think'))
+    print('spinner object:', spinner)
+    result = await slow_function()
+    spinner.cancel()
+    return result
+
+
+def main():
+    loop = asyncio.get_event_loop()
+    loop.set_debug(True)
+    result = loop.run_until_complete(supervisor())
+    loop.close()
+    print('Answer:', result)
+
+
+if __name__ == '__main__':
+    main()
