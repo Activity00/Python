@@ -133,7 +133,7 @@ def merge_sort(nums):
 
 
 def merge2(nums, l, r):
-    
+    ret = []
     while l and r:
         if l[0] > r[0]:
             ret.append(r[0])

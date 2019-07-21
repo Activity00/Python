@@ -7,10 +7,9 @@ async def spin(msg):
     write, flush = sys.stdout.write, sys.stdout.flush
     for char in itertools.cycle('|/-\\'):
         status = f'{char} {msg}'
-        print(status)
-        write(status)
+        write(status.encode())
         flush()
-        write('\x08' * len(status))
+        write(b'\x08' * len(status))
         try:
             await asyncio.sleep(.1)
         except asyncio.CancelledError:
@@ -41,3 +40,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
