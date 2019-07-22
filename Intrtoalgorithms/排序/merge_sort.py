@@ -1,3 +1,6 @@
+import doctest
+import operator
+import random
 
 
 def merge(nums, p, q, r):
@@ -19,6 +22,13 @@ def merge(nums, p, q, r):
 
 
 def merge_sort(nums, p, r):
+    """
+    >>> nums = random.sample(range(10), 10)
+    >>> ret = sorted(nums)
+    >>> merge_sort(nums, 0, len(nums)-1)
+    >>> operator.eq(ret, nums)
+    True
+    """
     if p < r:
         q = (p + r) // 2
         merge_sort(nums, p, q)
@@ -26,6 +36,14 @@ def merge_sort(nums, p, r):
         merge(nums, p, q, r)
 
 
-nums = [5, 2, 4, 7, 1, 3, 2, 6]
-merge_sort(nums, 0, len(nums)-1)
-print(nums)
+def test():
+    # nums_list = [5, 2, 4, 7, 1, 3, 2, 6, 9]
+    nums_list = [5, 2, 4]
+    merge_sort(nums_list, 0, len(nums_list) - 1)
+    print(nums_list)
+
+
+if __name__ == '__main__':
+    # doctest.testmod()
+    test()
+
