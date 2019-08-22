@@ -33,6 +33,7 @@ class EchoFactory:
 
 async def main():
     loop = asyncio.get_running_loop()
+    print(loop)
     server = await loop.create_server(EchoFactory(), 'localhost', 8888)
     async with server:
         await server.serve_forever()
