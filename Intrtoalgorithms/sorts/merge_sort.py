@@ -1,4 +1,3 @@
-import doctest
 import operator
 import random
 
