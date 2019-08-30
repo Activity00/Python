@@ -20,6 +20,30 @@ class BitNode:
     def __str__(self):
         return f'BiteNode({self.data})'
 
+
+class BiTree(BitNode):
+    def __str__(self):
+        return f'BSTree->root({self.data})'
+
+    @staticmethod
+    def build_btree(lists: List[object]) -> (None, 'BitNode'):
+        if not lists:
+            return None
+        tree_node = BitNode(lists[0])
+        queue = deque([tree_node])
+        i = 1
+        while i < len(lists):
+            node = queue.popleft()
+            node.left = node.right = None
+            if lists[i]:
+                node.left = BitNode(lists[i])
+                queue.append(node.left)
+            if lists[i + 1: i + 2] and lists[i + 1]:
+                node.right = BitNode(lists[i + 1])
+                queue.append(node.right)
+            i += 2
+        return tree_node
+
     @property
     def height(self):
         pass
@@ -99,30 +123,6 @@ class BitNode:
                 pass
 
 
-class BiTree(BitNode):
-    def __str__(self):
-        return f'BSTree->root({self.data})'
-
-    @staticmethod
-    def build_bstree(lists: List[object]) -> (None, 'BitNode'):
-        if not lists:
-            return None
-        tree_node = BitNode(lists[0])
-        queue = deque([tree_node])
-        i = 1
-        while i < len(lists):
-            node = queue.popleft()
-            node.left = node.right = None
-            if lists[i]:
-                node.left = BitNode(lists[i])
-                queue.append(node.left)
-            if lists[i + 1: i + 2] and lists[i + 1]:
-                node.right = BitNode(lists[i + 1])
-                queue.append(node.right)
-            i += 2
-        return tree_node
-
-
 class BSTree(BiTree):
     def __str__(self):
         return f'BSTree->root({self.data})'
@@ -155,7 +155,7 @@ if __name__ == '__main__':
                9
     """
     tree_list = [15, 6, 18, 3, 7, 17, 20, 2, 4, None, 13, None, None, None, None, None, None, None, None, 9, None]
-    tree = BSTree.build_bstree(tree_list)
+    tree = BSTree.build_btree(tree_list)
     # 打印二叉搜索树
     # print('打印二叉搜索树：')
     # print_tree(tree)
