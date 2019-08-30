@@ -1,2 +1,2 @@
-About Python
+About Python Practice
 
