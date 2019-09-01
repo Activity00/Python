@@ -27,7 +27,7 @@ def print_tree(btree: BiTree) -> None:
         return
 
     height = btree.height
-    spaces = [2**i - 1 for i in range(height)[::-1]]
+    spaces = [2 ** i - 1 for i in range(height)[::-1]]
     row = 0
     queue = [btree]
     while queue:
@@ -42,7 +42,7 @@ def print_tree(btree: BiTree) -> None:
                 print(' ' * spaces[j], end='')
                 flag = False
             else:
-                print(' ' * spaces[j-1], end='')
+                print(' ' * spaces[j - 1], end='')
             if q is None:
                 print(' ', end='')
             else:
@@ -134,4 +134,3 @@ def _post_order_traverse(node, func):
         _pre_order_traverse(node.left, func)
         _pre_order_traverse(node.right, func)
         func(node)
-
