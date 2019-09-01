@@ -1,43 +1,59 @@
-from collections import deque
+from typing import Callable
+
+from datastruct.pytree.pytree.tree import BiTree
 
 
-def print_space(num):
-    for i in range(num):
-        print(' ', end='')
+def level_traversal(btree: BiTree, func: Callable) -> None:
+    if btree is None:
+        return
+    queue = [btree]
+    while queue:
+        q = queue.pop(0)
+        func(q)
+        if q.left:
+            queue.append(q.left)
+        if q.right:
+            queue.append(q.right)
 
 
-def print_tree(tree):
-    max_height = tree.height
-    space_nums = [2 ** i - 1 for i in range(max_height)[::-1]]
+def print_tree(btree: BiTree) -> None:
+    """
+    因为树越深，叶子越茂盛。为了保证打印出的结果不要太紧凑，底层叶子结点至少间隔一个位置
+    所以计算树高 通过计算出底层叶子最大可能值可以确定每层的第一个结点前面的空格数， 当前行的
+    第二个空行正好是前一行第一个值的空行数目
+    最后通过层序遍历打印结果
+    """
+    if btree is None:
+        return
+
+    height = btree.height
+    spaces = [2**i - 1 for i in range(height)[::-1]]
     row = 0
-    stack = deque([tree.root])
-    while stack:
-        flag = 0
+    queue = [btree]
+    while queue:
+        cur_queue = []
+        while queue:
+            cur_queue.append(queue.pop(0))
         j = row
-        tmp = []
-        while stack:
-            if flag >= 1:
-                print_space(space_nums[j])
+        flag = True
+        while cur_queue:
+            q = cur_queue.pop(0)
+            if flag:
+                print(' ' * spaces[j], end='')
+                flag = False
             else:
-                print_space(space_nums[j])
-                j -= 1
-            flag += 1
-            s = stack.popleft()
-            if s:
-                if s.data:
-                    print(s.data, end='')
-                tmp.append(s.left)
-                tmp.append(s.right)
-            else:
-                tmp.append(None)
-                tmp.append(None)
+                print(' ' * spaces[j-1], end='')
+            if q is None:
                 print(' ', end='')
-        stack.extend(tmp)
-        row += 1
-        if not any(stack):
-            break
+            else:
+                print(q.data, end='')
+                queue.append(q.left)
+                queue.append(q.right)
+
         print('\n')
-    print('\n')
+        row += 1
+        if not any(queue):
+            break
 
 
 def in_order_traverse(node, func, is_ret=False):
