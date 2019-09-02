@@ -1,9 +1,9 @@
-from typing import Callable
+from typing import Callable, Union
 
-from datastruct.pytree.pytree.tree import BSTree, BitNode
+from datastruct.pytree.pytree.tree import BSTree, BitNode, BiTree
 
 
-def print_tree(btree) -> None:
+def print_tree(btree: BiTree) -> None:
     """
     因为树越深，叶子越茂盛。为了保证打印出的结果不要太紧凑，底层叶子结点至少间隔一个位置
     所以计算树高 通过计算出底层叶子最大可能值可以确定每层的第一个结点前面的空格数， 当前行的
@@ -43,7 +43,7 @@ def print_tree(btree) -> None:
             break
 
 
-def level_traversal(btree, func: Callable) -> None:
+def level_traversal(btree: BiTree, func: Callable) -> None:
     if btree is None:
         return
     queue = [btree]
@@ -56,7 +56,7 @@ def level_traversal(btree, func: Callable) -> None:
             queue.append(q.right)
 
 
-def pre_order_traverse(btree, func):
+def pre_order_traverse(btree: BiTree, func: Callable) -> None:
     if not btree:
         return
 
@@ -70,7 +70,7 @@ def pre_order_traverse(btree, func):
             stack.append(n.left)
 
 
-def in_order_traverse(btree, func):
+def in_order_traverse(btree: BiTree, func: Callable) -> None:
     if not btree:
         return
     tmp_node = btree.root
@@ -86,7 +86,7 @@ def in_order_traverse(btree, func):
             tmp_node = n.right
 
 
-def post_order_traverse(btree, func):
+def post_order_traverse(btree: BiTree, func: Callable) -> None:
     if not btree:
         return
     stack1 = [btree.root]
@@ -103,7 +103,7 @@ def post_order_traverse(btree, func):
         func(n)
 
 
-def tree_search(node: BitNode, key: int):
+def tree_search(node: BitNode, key: int) -> Union[None, BitNode]:
     tmp_node = node
     while tmp_node:
         if tmp_node.data == key:

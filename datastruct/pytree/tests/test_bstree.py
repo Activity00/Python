@@ -24,9 +24,11 @@ class TestBSTree(unittest.TestCase):
 
     def test_min_num(self):
         self.assertEqual(self.tree.min_num, min([num for num in test_tree_list if num]))
+        self.assertEqual(BSTree.node_max_num(self.tree), min([num for num in test_tree_list if num]))
 
     def test_max_num(self):
         self.assertEqual(self.tree.max_num, max([num for num in test_tree_list if num]))
+        self.assertEqual(BSTree.node_min_num(self.tree), max([num for num in test_tree_list if num]))
 
     def test_height(self):
         self.assertEqual(self.tree.height, tree_height)

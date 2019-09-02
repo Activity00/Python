@@ -72,3 +72,30 @@ class BSTree(BiTree):
             node = node.right
         return node.data
 
+    @staticmethod
+    def node_max_num(node):
+        tmp_node = node
+        while tmp_node.left:
+            tmp_node = tmp_node.left
+        return tmp_node.data
+
+    @staticmethod
+    def node_min_num(node):
+        tmp_node = node
+        while tmp_node.right:
+            tmp_node = tmp_node.right
+        return tmp_node.data
+
+    # @staticmethod
+    # def successor(node):
+    #     x = node
+    #     if x.right:
+    #         return BSTree.node_min_num(x.right)
+    #     y = x.parent
+    #     while y and x == y.right:
+    #         x = y
+    #         y = y.parent
+    #     return y.data if y else None
+
+    def __str__(self):
+        return f'BSTree->root({self.data})'
