@@ -1,22 +1,7 @@
 from typing import Callable
 
-from datastruct.pytree.pytree.tree import BiTree
 
-
-def level_traversal(btree: BiTree, func: Callable) -> None:
-    if btree is None:
-        return
-    queue = [btree]
-    while queue:
-        q = queue.pop(0)
-        func(q)
-        if q.left:
-            queue.append(q.left)
-        if q.right:
-            queue.append(q.right)
-
-
-def print_tree(btree: BiTree) -> None:
+def print_tree(btree) -> None:
     """
     因为树越深，叶子越茂盛。为了保证打印出的结果不要太紧凑，底层叶子结点至少间隔一个位置
     所以计算树高 通过计算出底层叶子最大可能值可以确定每层的第一个结点前面的空格数， 当前行的
@@ -56,6 +41,19 @@ def print_tree(btree: BiTree) -> None:
             break
 
 
+def level_traversal(btree, func: Callable) -> None:
+    if btree is None:
+        return
+    queue = [btree]
+    while queue:
+        q = queue.pop(0)
+        func(q)
+        if q.left:
+            queue.append(q.left)
+        if q.right:
+            queue.append(q.right)
+
+
 def in_order_traverse(node, func, is_ret=False):
     if not node:
         return
@@ -77,13 +75,6 @@ def in_order_traverse(node, func, is_ret=False):
     return ret
 
 
-def _in_order_traverse(node, func):
-    if node:
-        _in_order_traverse(node.left, func)
-        func(node)
-        _in_order_traverse(node.right, func)
-
-
 def pre_order_traverse(node, func, is_ret=False):
     if not node:
         return
@@ -99,13 +90,6 @@ def pre_order_traverse(node, func, is_ret=False):
         if n.left:
             stack.append(n.left)
     return ret
-
-
-def _pre_order_traverse(node, func):
-    if node:
-        func(node)
-        _pre_order_traverse(node.left, func)
-        _pre_order_traverse(node.right, func)
 
 
 def post_order_traverse(node, func, is_ret=False):
@@ -129,8 +113,4 @@ def post_order_traverse(node, func, is_ret=False):
     return ret
 
 
-def _post_order_traverse(node, func):
-    if node:
-        _pre_order_traverse(node.left, func)
-        _pre_order_traverse(node.right, func)
-        func(node)
+
