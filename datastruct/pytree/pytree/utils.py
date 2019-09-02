@@ -1,5 +1,7 @@
 from typing import Callable
 
+from datastruct.pytree.pytree.tree import BSTree, BitNode
+
 
 def print_tree(btree) -> None:
     """
@@ -101,4 +103,12 @@ def post_order_traverse(btree, func):
         func(n)
 
 
+def tree_search(node: BitNode, key: int):
+    tmp_node = node
+    while tmp_node:
+        if tmp_node.data == key:
+            return node
+        tmp_node = tmp_node.left if tmp_node.data > key else tmp_node.right
+    else:
+        return None
 

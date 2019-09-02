@@ -1,6 +1,7 @@
 import unittest
 
-from datastruct.pytree.pytree import BSTree
+from datastruct.pytree.pytree.tree import BSTree
+
 """
                    15
                /        \ 
@@ -19,7 +20,7 @@ tree_height = 5
 class TestBSTree(unittest.TestCase):
 
     def setUp(self):
-        self.tree = BSTree.build_bstree(test_tree_list)
+        self.tree = BSTree.build_from_list(test_tree_list)
 
     def test_min_num(self):
         self.assertEqual(self.tree.min_num, min([num for num in test_tree_list if num]))

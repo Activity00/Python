@@ -1,7 +1,5 @@
 from typing import List
 
-from datastruct.pytree.pytree.utils import level_traversal, print_tree
-
 
 class BitNode:
     def __init__(self, data=None, left=None, right=None, parent=None):
@@ -33,11 +31,11 @@ class BiTree(BitNode):
         return f'BiTree->root({self.data})'
 
     @classmethod
-    def build_from_list(cls, lists: List):
+    def build_from_list(cls, lists: List[object]):
         if not lists:
             return None
 
-        tree = BiTree(lists[0])
+        tree = cls(lists[0])
         queue = [tree.root]
         i = 1
         while i < len(lists):
@@ -53,7 +51,24 @@ class BiTree(BitNode):
         return tree
 
 
-if __name__ == '__main__':
-    tree_list = [15, 6, 18, 3, 7, 17, 20, 2, 4, None, 13, None, None, None, None, None, None, None, None, 9, None]
-    btree = BiTree.build_from_list(tree_list)
-    print_tree(btree)
+class BSTree(BiTree):
+
+    # TODO build bstree from unsorted list
+    @classmethod
+    def build_from_list(cls, lists: List[int]):
+        return super().build_from_list(lists)
+
+    @property
+    def min_num(self):
+        node = self
+        while node.left:
+            node = node.left
+        return node.data
+
+    @property
+    def max_num(self):
+        node = self
+        while node.right:
+            node = node.right
+        return node.data
+

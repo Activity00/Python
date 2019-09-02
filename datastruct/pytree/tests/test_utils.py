@@ -1,7 +1,8 @@
 import unittest
 
 from datastruct.pytree.pytree import BiTree
-from datastruct.pytree.pytree.utils import pre_order_traverse, post_order_traverse, in_order_traverse, level_traversal
+from datastruct.pytree.pytree.utils import pre_order_traverse, post_order_traverse, in_order_traverse, level_traversal, \
+    tree_search
 
 """
                    15
@@ -46,6 +47,10 @@ class TestUtils(unittest.TestCase):
         ret = []
         post_order_traverse(self.tree, lambda x: ret.append(x.data))
         self.assertListEqual(ret, post_order_list)
+
+    def tree_search(self):
+        self.assertEqual(tree_search(self.tree, 7).data, 7)
+        self.assertEqual(tree_search(self.tree, 999), None)
 
 
 if __name__ == '__main__':
