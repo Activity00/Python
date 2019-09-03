@@ -17,30 +17,28 @@ def print_tree(btree: BiTree) -> None:
     spaces = [2 ** i - 1 for i in range(height)[::-1]]
     row = 0
     queue = [btree]
-    while queue:
+    while any(queue):
         cur_queue = []
         while queue:
             cur_queue.append(queue.pop(0))
-        j = row
+
         flag = True
         while cur_queue:
             q = cur_queue.pop(0)
             if flag:
-                print(' ' * spaces[j], end='')
+                print(' ' * spaces[row], end='')
                 flag = False
             else:
-                print(' ' * spaces[j - 1], end='')
+                print(' ' * spaces[row - 1], end='')
             if q is None:
                 print(' ', end='')
             else:
                 print(q.data, end='')
-                queue.append(q.left)
-                queue.append(q.right)
+            queue.append(q.left if q else None)
+            queue.append(q.right if q else None)
 
         print('\n')
         row += 1
-        if not any(queue):
-            break
 
 
 def level_traversal(btree: BiTree, func: Callable) -> None:
@@ -101,14 +99,3 @@ def post_order_traverse(btree: BiTree, func: Callable) -> None:
     while stack2:
         n = stack2.pop()
         func(n)
-
-
-def tree_search(node: BitNode, key: int) -> Union[None, BitNode]:
-    tmp_node = node
-    while tmp_node:
-        if tmp_node.data == key:
-            return node
-        tmp_node = tmp_node.left if tmp_node.data > key else tmp_node.right
-    else:
-        return None
-

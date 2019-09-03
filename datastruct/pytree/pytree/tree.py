@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 
 class BitNode:
@@ -41,10 +41,10 @@ class BiTree(BitNode):
         while i < len(lists):
             node = queue.pop(0)
             if lists[i] is not None:
-                node.left = BitNode(lists[i])
+                node.left = BitNode(lists[i], parent=node)
                 queue.append(node.left)
             if i + 1 < len(lists) and lists[i + 1] is not None:
-                node.right = BitNode(lists[i + 1])
+                node.right = BitNode(lists[i + 1], parent=node)
                 queue.append(node.right)
             i += 2
 
@@ -73,29 +73,43 @@ class BSTree(BiTree):
         return node.data
 
     @staticmethod
-    def node_max_num(node):
+    def node_max_num(node: BitNode):
         tmp_node = node
         while tmp_node.left:
             tmp_node = tmp_node.left
-        return tmp_node.data
+        return tmp_node
+
+    def search(self, key: int) -> Union[None, BitNode]:
+        return BSTree.tree_search(self.root, key)
 
     @staticmethod
-    def node_min_num(node):
+    def tree_search(node: BitNode, key: int, ) -> Union[None, BitNode]:
+        tmp_node = node
+        while tmp_node:
+            if tmp_node.data == key:
+                return tmp_node
+            tmp_node = tmp_node.left if tmp_node.data > key else tmp_node.right
+        else:
+            return None
+
+    @staticmethod
+    def node_min_num(node: BitNode) -> BitNode:
         tmp_node = node
         while tmp_node.right:
             tmp_node = tmp_node.right
-        return tmp_node.data
+        return tmp_node
 
-    # @staticmethod
-    # def successor(node):
-    #     x = node
-    #     if x.right:
-    #         return BSTree.node_min_num(x.right)
-    #     y = x.parent
-    #     while y and x == y.right:
-    #         x = y
-    #         y = y.parent
-    #     return y.data if y else None
+    @staticmethod
+    def successor(node: BitNode) -> BitNode:
+        x = node
+        if x.right:
+            return BSTree.node_max_num(x.right)
+
+        y = x.parent
+        while y and x == y.right:
+            x = y
+            y = y.parent
+        return y
 
     def __str__(self):
         return f'BSTree->root({self.data})'
