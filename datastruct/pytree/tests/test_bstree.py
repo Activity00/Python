@@ -37,6 +37,13 @@ class TestBSTree(unittest.TestCase):
         self.assertEqual(17, BSTree.successor(self.tree.root).data)
         self.assertEqual(15, BSTree.successor(self.tree.search(13)).data)
 
+    def test_successor(self):
+        self.assertEqual(6, BSTree.pre_successor(self.tree.root).data)
+        self.assertEqual(9, BSTree.pre_successor(self.tree.search(13)).data)
+        self.assertEqual(7, BSTree.pre_successor(self.tree.search(9)).data)
+        self.assertEqual(15, BSTree.pre_successor(self.tree.search(17)).data)
+        self.assertEqual(None, BSTree.pre_successor(self.tree.search(2)))
+
     def test_search(self):
         self.assertEqual(self.tree.search(7).data, 7)
         self.assertEqual(self.tree.search(3).data, 3)

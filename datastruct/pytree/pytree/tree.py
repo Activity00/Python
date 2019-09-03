@@ -31,7 +31,7 @@ class BiTree(BitNode):
         return f'BiTree->root({self.data})'
 
     @classmethod
-    def build_from_list(cls, lists: List[object]):
+    def build_from_list(cls, lists: List[object]) -> Union['BSTree', 'BiTree', None]:
         if not lists:
             return None
 
@@ -110,6 +110,33 @@ class BSTree(BiTree):
             x = y
             y = y.parent
         return y
+
+    @staticmethod
+    def pre_successor(node: BitNode) -> BitNode:
+        x = node
+        if x.left:
+            return x.left
+
+        y = x.parent
+        while y and x == y.left:
+            x = y
+            y = y.parent
+        return y
+
+    def insert(self, node: BitNode) -> None:
+        x = self.root
+        y = x
+        while x:
+            y = x
+            if node.data < x.data:
+                x = x.left
+            else:
+                x = x.right
+        node.parent = y
+        if y.data < node.data:
+            y.right = node
+        else:
+            y.left = node
 
     def __str__(self):
         return f'BSTree->root({self.data})'
