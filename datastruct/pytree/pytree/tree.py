@@ -15,10 +15,9 @@ class BitNode:
         return self.data is not None
 
 
-class BiTree(BitNode):
-    @property
-    def root(self):
-        return self
+class BiTree:
+    def __init__(self, root: BitNode):
+        self.root = root
 
     @property
     def height(self):
@@ -49,15 +48,15 @@ class BiTree(BitNode):
         return max_width
 
     def __str__(self):
-        return f'BiTree->root({self.data})'
+        return f'BiTree->root({self.root})'
 
     @classmethod
     def build_from_list(cls, lists: List[object]) -> Union['BSTree', 'BiTree', None]:
         if not lists:
             return None
 
-        tree = cls(lists[0])
-        queue = [tree.root]
+        root = BitNode(lists[0])
+        queue = [root]
         i = 1
         while i < len(lists):
             node = queue.pop(0)
@@ -73,7 +72,7 @@ class BiTree(BitNode):
                 queue.append(None)
             i += 2
 
-        return tree
+        return cls(root)
 
 
 class BSTree(BiTree):
@@ -85,14 +84,14 @@ class BSTree(BiTree):
 
     @property
     def min_num(self):
-        node = self
+        node = self.root
         while node.left:
             node = node.left
         return node.data
 
     @property
     def max_num(self):
-        node = self
+        node = self.root
         while node.right:
             node = node.right
         return node.data
@@ -163,5 +162,34 @@ class BSTree(BiTree):
         else:
             y.left = node
 
+    def transplant(self, u: BitNode, v: BitNode) -> None:
+        """
+        use v replace u
+        """
+        if u.parent is None:
+            self.root = v
+        elif u == u.parent.left:
+            u.parent.left = v
+        else:
+            u.parent.right = v
+
+        if v is not None:
+            v.parent = u.parent
+
+    def delete(self, z: BitNode):
+        if z.left is None:
+            self.transplant(z, z.right)
+        elif z.right is None:
+            self.transplant(z, z.left)
+        else:
+            y = BSTree.node_min_num(z.right)
+            if y.parent is not z:
+                self.transplant(y, y.right)
+                y.right = z.right
+                y.right.parent = y
+            self.transplant(z, y)
+            y.left = z.left
+            y.left.parent = y
+
     def __str__(self):
-        return f'BSTree->root({self.data})'
+        return f'BSTree->root({self.root})'

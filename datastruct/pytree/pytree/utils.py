@@ -16,7 +16,7 @@ def print_tree(btree: Union[BiTree, BSTree]) -> None:
     height = btree.height
     spaces = [2 ** (i+1) - 1 for i in range(height)[::-1]]
     row = 0
-    queue = [btree]
+    queue = [btree.root]
     while any(queue):
         cur_queue = []
         while queue:
@@ -44,7 +44,7 @@ def print_tree(btree: Union[BiTree, BSTree]) -> None:
 def level_traversal(btree: BiTree, func: Callable) -> None:
     if btree is None:
         return
-    queue = [btree]
+    queue = [btree.root]
     while queue:
         q = queue.pop(0)
         func(q)

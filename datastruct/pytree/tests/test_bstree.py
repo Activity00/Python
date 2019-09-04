@@ -1,6 +1,6 @@
 import unittest
 
-from datastruct.pytree.pytree.tree import BSTree
+from datastruct.pytree.pytree.tree import BSTree, BitNode
 
 """
                    15
@@ -25,11 +25,11 @@ class TestBSTree(unittest.TestCase):
 
     def test_min_num(self):
         self.assertEqual(self.tree.min_num, min([num for num in test_tree_list if num]))
-        self.assertEqual(BSTree.node_max_num(self.tree).data, min([num for num in test_tree_list if num]))
+        self.assertEqual(BSTree.node_max_num(self.tree.root).data, min([num for num in test_tree_list if num]))
 
     def test_max_num(self):
         self.assertEqual(self.tree.max_num, max([num for num in test_tree_list if num]))
-        self.assertEqual(BSTree.node_min_num(self.tree).data, max([num for num in test_tree_list if num]))
+        self.assertEqual(BSTree.node_min_num(self.tree.root).data, max([num for num in test_tree_list if num]))
 
     def test_height(self):
         self.assertEqual(self.tree.height, tree_height)
@@ -49,6 +49,23 @@ class TestBSTree(unittest.TestCase):
         self.assertEqual(self.tree.search(7).data, 7)
         self.assertEqual(self.tree.search(3).data, 3)
         self.assertEqual(self.tree.search(999), None)
+
+    def test_transplant(self):
+        self.tree.transplant(self.tree.search(2), self.tree.search(7))
+
+    def test_delete(self):
+        self.tree.delete(self.tree.search(17))
+        self.assertEqual(None, self.tree.search(17))
+        self.tree.insert(BitNode(17))
+
+        self.tree.delete(self.tree.search(13))
+        self.assertEqual(None, self.tree.search(13))
+        self.tree.insert(BitNode(13))
+
+        self.tree.delete(self.tree.search(15))
+        self.assertEqual(None, self.tree.search(15))
+        self.tree.insert(BitNode(15))
+        self.tree = BSTree.build_from_list(test_tree_list)
 
 
 if __name__ == '__main__':
