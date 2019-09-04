@@ -14,7 +14,7 @@ from datastruct.pytree.pytree.utils import pre_order_traverse, post_order_traver
                 /
                9
 """
-test_tree_list = [15, 6, 18, 3, 7, 17, 20, 2, 4, None, 13, None, None, None, None, None, None, None, None, 9, None]
+test_tree_list = [15, 6, 18, 3, 7, 17, 20, 2, 4, None, 13, None, None, None, None, None, None, None, None, None, None, 9, None]
 
 level_traverse_list = [15, 6, 18, 3, 7, 17, 20, 2, 4, 13, 9]
 in_order_list = [2, 3, 4, 6, 7, 9, 13, 15, 17, 18, 20]

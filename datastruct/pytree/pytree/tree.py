@@ -27,6 +27,27 @@ class BiTree(BitNode):
     def _height_recursion(self, root):
         return 0 if not root else max(self._height_recursion(root.left), self._height_recursion(root.right)) + 1
 
+    @property
+    def width(self):
+        # TODO
+        cur_width = 1
+        max_width = 0
+        q = [self.root]
+        while q:
+            n = cur_width
+            for i in range(n):
+                tmp = q.pop(0)
+                cur_width -= 1
+                if tmp.left:
+                    q.append(tmp.left)
+                    cur_width += 1
+                if tmp.right:
+                    q.append(tmp.right)
+                    cur_width += 1
+            if cur_width > max_width:
+                max_width = cur_width
+        return max_width
+
     def __str__(self):
         return f'BiTree->root({self.data})'
 
@@ -40,12 +61,16 @@ class BiTree(BitNode):
         i = 1
         while i < len(lists):
             node = queue.pop(0)
-            if lists[i] is not None:
+            if lists[i] is not None and node:
                 node.left = BitNode(lists[i], parent=node)
                 queue.append(node.left)
-            if i + 1 < len(lists) and lists[i + 1] is not None:
+            else:
+                queue.append(None)
+            if i + 1 < len(lists) and lists[i + 1] is not None and node:
                 node.right = BitNode(lists[i + 1], parent=node)
                 queue.append(node.right)
+            else:
+                queue.append(None)
             i += 2
 
         return tree

@@ -3,7 +3,7 @@ from typing import Callable, Union
 from datastruct.pytree.pytree.tree import BSTree, BitNode, BiTree
 
 
-def print_tree(btree: BiTree) -> None:
+def print_tree(btree: Union[BiTree, BSTree]) -> None:
     """
     因为树越深，叶子越茂盛。为了保证打印出的结果不要太紧凑，底层叶子结点至少间隔一个位置
     所以计算树高 通过计算出底层叶子最大可能值可以确定每层的第一个结点前面的空格数， 当前行的
@@ -12,9 +12,9 @@ def print_tree(btree: BiTree) -> None:
     """
     if btree is None:
         return
-
+    str_space = ' '
     height = btree.height
-    spaces = [2 ** i - 1 for i in range(height)[::-1]]
+    spaces = [2 ** (i+1) - 1 for i in range(height)[::-1]]
     row = 0
     queue = [btree]
     while any(queue):
@@ -26,12 +26,12 @@ def print_tree(btree: BiTree) -> None:
         while cur_queue:
             q = cur_queue.pop(0)
             if flag:
-                print(' ' * spaces[row], end='')
+                print(str_space * spaces[row], end='')
                 flag = False
             else:
-                print(' ' * spaces[row - 1], end='')
+                print(str_space * spaces[row - 1], end='')
             if q is None:
-                print(' ', end='')
+                print(str_space, end='')
             else:
                 print(q.data, end='')
             queue.append(q.left if q else None)
