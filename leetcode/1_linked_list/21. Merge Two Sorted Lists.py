@@ -14,11 +14,6 @@ class ListNode:
         self.val = x
         self.next = None
 
-"""
-[-9, 3]
-[5,  7]
-"""
-
 
 class Solution:
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
