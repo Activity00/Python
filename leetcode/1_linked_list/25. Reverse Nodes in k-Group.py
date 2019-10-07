@@ -21,7 +21,38 @@ class ListNode:
         self.val = x
         self.next = None
 
+
 # 1, 2, 3, 4, 5
+
+
 class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
-        pass
+        tmp_head = ListNode(None)
+        cur = group_head = head
+        pre = None
+        flag = True
+        while cur:
+            for _ in range(k):
+                if cur is None:
+                    break
+                cur = cur.next
+            else:
+                group_cur = group_head
+                group_next = None
+                for _ in range(k):
+                    group_next = group_cur.next
+                    group_cur.next = pre
+                    pre = group_cur
+                    group_cur = group_next
+
+                if flag:
+                    tmp_head.next = group_cur
+                    flag = False
+
+                pre = group_head
+                group_head = group_next
+                continue
+
+            pre.next = group_head
+        return tmp_head.next
+
