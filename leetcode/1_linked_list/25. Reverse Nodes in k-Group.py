@@ -26,33 +26,32 @@ class ListNode:
 
 
 class Solution:
+    def reverse(self, head: ListNode):
+        cur = head
+        pre = None
+        while cur:
+            nt = cur.next
+            cur.next = pre
+            pre = cur
+            cur = nt
+        return pre
+
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
         tmp_head = ListNode(None)
-        cur = group_head = head
-        pre = None
-        flag = True
-        while cur:
-            for _ in range(k):
-                if cur is None:
-                    break
-                cur = cur.next
-            else:
-                group_cur = group_head
-                group_next = None
-                for _ in range(k):
-                    group_next = group_cur.next
-                    group_cur.next = pre
-                    pre = group_cur
-                    group_cur = group_next
-
-                if flag:
-                    tmp_head.next = group_cur
-                    flag = False
-
-                pre = group_head
-                group_head = group_next
-                continue
-
-            pre.next = group_head
+        tmp_head.next = head
+        pre = end = tmp_head
+        while end.next:
+            count = k
+            while count > 0 and end:
+                end = end.next
+                count -= 1
+            if end is None:
+                break
+            nt = end.next
+            end.next = None
+            start = pre.next
+            pre.next = self.reverse(start)
+            start.next = nt
+            pre = start
+            end = pre
         return tmp_head.next
-
