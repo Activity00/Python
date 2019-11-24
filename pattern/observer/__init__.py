@@ -37,9 +37,8 @@ class Observerable(object):
         self._list_observer.remove(o)
 
     def noifyObservers(self):
-        print
-        'Observerable', 'start'
-        self.__notifyObservers(None);
+        print('Observerable', 'start')
+        self.__notifyObservers(None)
 
     def __notifyObservers(self, args):
         list_tmp = self._list_observer
