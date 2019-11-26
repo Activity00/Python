@@ -2,7 +2,8 @@ import sys
 
 import pygame
 
-from p_game.screen import ScreenManager, LoginScreen
+from p_game.screen import ScreenManager
+from p_game.screen.login_screen import LoginScreen
 
 if __name__ == '__main__':
     pygame.init()
@@ -16,8 +17,8 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 sys.exit()
 
+        display.fill((0, 0, 0))
         screen_manager.update_screen()
-
         pygame.display.flip()
 
     pygame.quit()
