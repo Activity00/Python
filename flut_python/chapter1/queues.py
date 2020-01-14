@@ -22,3 +22,4 @@ if __name__ == '__main__':
     dq.extend([11, 22, 33])
     print(dq)
     dq.extendleft([10, 20])
+
