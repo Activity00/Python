@@ -1,21 +1,20 @@
-def merge(nums, p, q, r):
-    return p
 
 
-def merge_sort(nums, p, r):
-    if p < r:
-        q = (p + r) // 2
-        merge_sort(nums, p, q)
-        merge_sort(nums, q + 1, r)
-        merge(nums, p, q, r)
 
+def top_k(nums, p, r, k):
+    q = partition(nums, p, r)
 
-def test():
-    nums_list = [5, 2, 4, 7, 1, 3, 2, 6, 9, 10]
-    # nums_list = [5, 2, 4]
-    merge_sort(nums_list, 0, len(nums_list) - 1)
-    print(nums_list)
+    while q != k - 1:
+        if q == k - 1:
+            return nums[q]
+        elif q > k - 1:
+            q = partition(nums, q + 1, r)
+        else:
+            q = partition(nums, p, q - 1)
 
 
 if __name__ == '__main__':
-    test()
+    ns = [1, 4, 7, 2, 5, 8]
+    x = top_k(ns, 0, len(ns) - 1, 2)
+    print(x)
+    print(ns)

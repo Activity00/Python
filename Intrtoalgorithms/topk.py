@@ -1,20 +1,28 @@
-def partication(nums, p, r):
+def partition(nums, p, r):
     i = p
-    for j in range(p, r):
-        if nums[j] <= nums[r]:
+    for j in range(p, r + 1):
+        if nums[j] > nums[r]:
             nums[j], nums[i] = nums[i], nums[j]
             i += 1
-    nums[i], nums[r] = nums[r], nums[i]
+    nums[r], nums[i] = nums[i], nums[r]
     return i
 
 
-def topk(nums, k):
+def top_k(nums, k):
     low = 0
     high = len(nums)-1
-    q = partication(nums, low, high)
+    q = partition(nums, low, high)
     while q != k - 1:
         if q < k - 1:
             low = q + 1
         else:
             high = q - 1
-        q = partication(nums, low, high)
+        q = partition(nums, low, high)
+    return nums[q]
+
+
+if __name__ == '__main__':
+    ns = [1, 4, 7, 2, 5, 8]
+    x = top_k(ns, 2)
+    print(x)
+    print(ns)
