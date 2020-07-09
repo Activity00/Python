@@ -23,8 +23,8 @@ class Solution:
         cur, pre = head, None
         while cur and cur.next:
             first, second, third = cur, cur.next, cur.next.next
-            first.next = third
             second.next = first
+            first.next = third
 
             if pre is None:
                 head = second
@@ -34,3 +34,13 @@ class Solution:
             pre = first
             cur = third
         return head
+
+    def swapPairsr(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+
+        first = head
+        second = head.next
+        first.next = self.swapPairs(second.next)
+        second.next = first
+        return second
