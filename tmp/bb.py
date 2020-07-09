@@ -1,19 +1,17 @@
-from typing import List
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 
 class Solution:
-    def reverseString(self, s: List[str]) -> None:
-        """
-        Do not return anything, modify s in-place instead.
-        """
-        if len(s) < 1:
-            return s
-        return self.reverseString(s[1:]) + [s[0]]
+    def swapPairs(self, head: ListNode) -> ListNode:
+        pass
 
 
 if __name__ == '__main__':
-    a = ["h","e","l","l","o"]
+    a = ["h", "e", "l", "l", "o"]
     s = Solution()
     print(s.reverseString(a))
     print(a)
-
