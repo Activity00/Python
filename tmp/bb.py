@@ -1,17 +1,20 @@
-# Definition for singly-linked list.
-class ListNode:
+# Definition for a binary tree node.
+class TreeNode:
     def __init__(self, x):
         self.val = x
-        self.next = None
+        self.left = None
+        self.right = None
 
 
 class Solution:
-    def swapPairs(self, head: ListNode) -> ListNode:
-        pass
+    def maxDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        l = self.maxDepth(root.left)
+        r = self.maxDepth(root.right)
+        return max(l, r) + 1
 
 
 if __name__ == '__main__':
-    a = ["h", "e", "l", "l", "o"]
     s = Solution()
-    print(s.reverseString(a))
-    print(a)
+    print(s.fib(38))
