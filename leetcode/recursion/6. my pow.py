@@ -1,5 +1,3 @@
-import sys
-sys.setrecursionlimit(1000) #例如这里设置为十万
 
 
 class Solution:
