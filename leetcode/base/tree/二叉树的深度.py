@@ -28,9 +28,26 @@ class TreeNode:
 
 
 class Solution:
+    def maxDepth_r(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
             return 0
-        l = self.maxDepth(root.left)
-        r = self.maxDepth(root.right)
-        return max(l, r) + 1
+        dep = 0
+        q = [root]
+        while q:
+            dep += 1
+            length = len(q)
+            while length > 0:
+                t = q.pop(0)
+                if t.left:
+                    q.append(t.left)
+                if t.right:
+                    q.append(t.right)
+                length -= 1
+        return dep
+
+
