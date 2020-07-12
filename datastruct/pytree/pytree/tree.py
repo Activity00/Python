@@ -31,7 +31,7 @@ class BiTree:
         # TODO
         cur_width = 1
         max_width = 0
-        q = [self.root]
+        q: List = [self.root]
         while q:
             n = cur_width
             for i in range(n):
