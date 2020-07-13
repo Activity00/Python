@@ -1,15 +1,33 @@
-def insert_sort(nums):
-    for j in range(1, len(nums)):
-        key = nums[j]
-        i = j - 1
+def merge(nums, p, q, r):
+    left = nums[p: q+1]
+    right = nums[q+1: r+1]
 
-        while i >= 0 and nums[i] > key:
-            nums[i + 1] = nums[i]
-            i = i - 1
-        nums[i + 1] = key
+    left.append(float('inf'))
+    right.append(float('inf'))
+    i = j = 0
+    for k in range(p, r+1):
+        if left[i] > right[j]:
+            nums[k] = right[j]
+            j += 1
+        else:
+            nums[k] = left[i]
+            i += 1
+
+
+def merge_sort(nums, p, r):
+    if p < r:
+        q = (p + r) // 2
+        merge_sort(nums, p, q)
+        merge_sort(nums, q + 1, r)
+        merge(nums, p, q, r)
+
+
+def test():
+    nums_list = [5, 2, 4, 7, 1, 3, 2, 6, 9, 10]
+    # nums_list = [5, 2, 4]
+    merge_sort(nums_list, 0, len(nums_list) - 1)
+    print(nums_list)
 
 
 if __name__ == '__main__':
-    a = [1, 3, 7, 2, 5, 8]
-    insert_sort(a)
-    print(a)
+    test()
