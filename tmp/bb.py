@@ -1,17 +1,15 @@
-# Definition for a binary tree node.
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+def insert_sort(nums):
+    for j in range(1, len(nums)):
+        key = nums[j]
+        i = j - 1
 
-
-class Solution:
-    def maxDepth(self, root: TreeNode) -> int:
-        if not root:
-            return 0
-        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+        while i >= 0 and nums[i] > key:
+            nums[i + 1] = nums[i]
+            i = i - 1
+        nums[i + 1] = key
 
 
 if __name__ == '__main__':
-    s = Solution()
+    a = [1, 3, 7, 2, 5, 8]
+    insert_sort(a)
+    print(a)
