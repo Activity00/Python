@@ -12,14 +12,15 @@ from functools import lru_cache
 def fib(n):
     if n in (1, 2):
         return 1
-    return fib(n-2) + fib(n-1)
+    return fib(n - 2) + fib(n - 1)
 
 
 def fib_p(n):
     a = b = 1
-    for _ in range(2, n+1):
-        a, b = b, a+b
+    for _ in range(2, n + 1):
+        a, b = b, a + b
     return a
+
 
 """
 前 n 个 fib数
@@ -30,7 +31,7 @@ def fib_pp(n):
     m, a, b = 0, 0, 1
     while m < n:
         yield b
-        a, b = b, a+b
+        a, b = b, a + b
         m += 1
 
 
