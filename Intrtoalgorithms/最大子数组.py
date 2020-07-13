@@ -137,7 +137,7 @@ def find_max_array_dp(nums):
 
     left = right = 0
     mx = nums[0]
-    dp = [0]* len(nums)
+    dp = [0] * len(nums)
     dp[0] = nums[0]
     tmp = 0
     for i in range(1, len(nums)):
