@@ -1,10 +1,10 @@
 # -*-coding:utf-8-*-
 # ！usr/bin/env python
-'''
+"""
 Created on 2017年4月19日
 
 @author: 武明辉
-'''
+"""
 
 
 def insert_sort(lists):
