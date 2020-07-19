@@ -1,33 +1,7 @@
-def merge(nums, p, q, r):
-    left = nums[p: q+1]
-    right = nums[q+1: r+1]
-
-    left.append(float('inf'))
-    right.append(float('inf'))
-    i = j = 0
-    for k in range(p, r+1):
-        if left[i] > right[j]:
-            nums[k] = right[j]
-            j += 1
-        else:
-            nums[k] = left[i]
-            i += 1
+"""
+1. 输入十进制数，划去K位后最大的数？无前导0，K非负整数。十进制整数为M，K<M, M不大于1000000； eg： 492621 K=2 9262
+"""
 
 
-def merge_sort(nums, p, r):
-    if p < r:
-        q = (p + r) // 2
-        merge_sort(nums, p, q)
-        merge_sort(nums, q + 1, r)
-        merge(nums, p, q, r)
-
-
-def test():
-    nums_list = [5, 2, 4, 7, 1, 3, 2, 6, 9, 10]
-    # nums_list = [5, 2, 4]
-    merge_sort(nums_list, 0, len(nums_list) - 1)
-    print(nums_list)
-
-
-if __name__ == '__main__':
-    test()
+def mm(m, k):
+    pass
